@@ -52,43 +52,6 @@
 
 
 
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -107,7 +70,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 写在前面</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#标量向量矩阵张量之间的联系"><i class="fa fa-check"></i><b>2.1</b> 1.1 标量、向量、矩阵、张量之间的联系</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#张量与矩阵的区别"><i class="fa fa-check"></i><b>2.2</b> 1.2 张量与矩阵的区别？</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#矩阵和向量相乘结果"><i class="fa fa-check"></i><b>2.3</b> 1.3 矩阵和向量相乘结果</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#向量和矩阵的范数归纳"><i class="fa fa-check"></i><b>2.4</b> 1.4 向量和矩阵的范数归纳</a></li>
+<li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#如何判断一个矩阵为正定"><i class="fa fa-check"></i><b>2.5</b> 1.5 如何判断一个矩阵为正定？</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>3</b> Literature</a></li>
 <li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
 <li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a><ul>
@@ -138,185 +107,125 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="intro" class="section level1">
 <h1><span class="header-section-number">Chapter 2</span> Introduction</h1>
-<p>You can label chapter and section titles using <code>{#label}</code> after them, e.g., we can reference Chapter <a href="intro.html#intro">2</a>. If you do not manually label them, there will be automatic labels anyway, e.g., Chapter <a href="methods.html#methods">4</a>.</p>
-<p>Figures and tables with captions will be placed in <code>figure</code> and <code>table</code> environments, respectively.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, .<span class="dv">1</span>, .<span class="dv">1</span>))
-<span class="kw">plot</span>(pressure, <span class="dt">type =</span> <span class="st">&#39;b&#39;</span>, <span class="dt">pch =</span> <span class="dv">19</span>)</code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:nice-fig"></span>
-<img src="Deep-Learning-Book_files/figure-html/nice-fig-1.png" alt="Here is a nice figure!" width="80%" />
-<p class="caption">
-Figure 2.1: Here is a nice figure!
-</p>
+<div id="标量向量矩阵张量之间的联系" class="section level2">
+<h2><span class="header-section-number">2.1</span> 1.1 标量、向量、矩阵、张量之间的联系</h2>
+<p><strong>标量（scalar）</strong><br />
+一个标量表示一个单独的数，它不同于线性代数中研究的其他大部分对象（通常是多个数的数组）。我们用斜体表示标量。标量通常被赋予小写的变量名称。</p>
+<p><strong>向量（vector）</strong><br />
+​一个向量表示一组有序排列的数。通过次序中的索引，我们可以确定每个单独的数。通常我们赋予向量粗体的小写变量名称，比如xx。向量中的元素可以通过带脚标的斜体表示。向量<span class="math inline">\(X\)</span>的第一个元素是<span class="math inline">\(X_1\)</span>，第二个元素是<span class="math inline">\(X_2\)</span>，以此类推。我们也会注明存储在向量中的元素的类型（实数、虚数等）。</p>
+<p><strong>矩阵（matrix）</strong><br />
+​矩阵是具有相同特征和纬度的对象的集合，表现为一张二维数据表。其意义是一个对象表示为矩阵中的一行，一个特征表示为矩阵中的一列，每个特征都有数值型的取值。通常会赋予矩阵粗体的大写变量名称，比如<span class="math inline">\(A\)</span>。</p>
+<p><strong>张量（tensor）</strong><br />
+​在某些情况下，我们会讨论坐标超过两维的数组。一般地，一个数组中的元素分布在若干维坐标的规则网格中，我们将其称之为张量。使用 <span class="math inline">\(A\)</span> 来表示张量“A”。张量<span class="math inline">\(A\)</span>中坐标为<span class="math inline">\((i,j,k)\)</span>的元素记作<span class="math inline">\(A_{(i,j,k)}\)</span>。</p>
+<p><strong>四者之间关系</strong></p>
+<blockquote>
+<p>标量是0阶张量，向量是一阶张量。举例：<br />
+​标量就是知道棍子的长度，但是你不会知道棍子指向哪儿。<br />
+​向量就是不但知道棍子的长度，还知道棍子指向前面还是后面。<br />
+​张量就是不但知道棍子的长度，也知道棍子指向前面还是后面，还能知道这棍子又向上/下和左/右偏转了多少。</p>
+</blockquote>
 </div>
-<p>Reference a figure by its code chunk label with the <code>fig:</code> prefix, e.g., see Figure <a href="intro.html#fig:nice-fig">2.1</a>. Similarly, you can reference tables generated from <code>knitr::kable()</code>, e.g., see Table <a href="intro.html#tab:nice-tab">2.1</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr::<span class="kw">kable</span>(
-  <span class="kw">head</span>(iris, <span class="dv">20</span>), <span class="dt">caption =</span> <span class="st">&#39;Here is a nice table!&#39;</span>,
-  <span class="dt">booktabs =</span> <span class="ot">TRUE</span>
-)</code></pre></div>
-<table>
-<caption><span id="tab:nice-tab">Table 2.1: </span>Here is a nice table!</caption>
-<thead>
-<tr class="header">
-<th align="right">Sepal.Length</th>
-<th align="right">Sepal.Width</th>
-<th align="right">Petal.Length</th>
-<th align="right">Petal.Width</th>
-<th align="left">Species</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">5.1</td>
-<td align="right">3.5</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.9</td>
-<td align="right">3.0</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.7</td>
-<td align="right">3.2</td>
-<td align="right">1.3</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.6</td>
-<td align="right">3.1</td>
-<td align="right">1.5</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.0</td>
-<td align="right">3.6</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.4</td>
-<td align="right">3.9</td>
-<td align="right">1.7</td>
-<td align="right">0.4</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.6</td>
-<td align="right">3.4</td>
-<td align="right">1.4</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.0</td>
-<td align="right">3.4</td>
-<td align="right">1.5</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.4</td>
-<td align="right">2.9</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.9</td>
-<td align="right">3.1</td>
-<td align="right">1.5</td>
-<td align="right">0.1</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.4</td>
-<td align="right">3.7</td>
-<td align="right">1.5</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.8</td>
-<td align="right">3.4</td>
-<td align="right">1.6</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.8</td>
-<td align="right">3.0</td>
-<td align="right">1.4</td>
-<td align="right">0.1</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.3</td>
-<td align="right">3.0</td>
-<td align="right">1.1</td>
-<td align="right">0.1</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.8</td>
-<td align="right">4.0</td>
-<td align="right">1.2</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.7</td>
-<td align="right">4.4</td>
-<td align="right">1.5</td>
-<td align="right">0.4</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.4</td>
-<td align="right">3.9</td>
-<td align="right">1.3</td>
-<td align="right">0.4</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.1</td>
-<td align="right">3.5</td>
-<td align="right">1.4</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.7</td>
-<td align="right">3.8</td>
-<td align="right">1.7</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.1</td>
-<td align="right">3.8</td>
-<td align="right">1.5</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-</tbody>
-</table>
-<p>You can write citations, too. For example, we are using the <strong>bookdown</strong> package <span class="citation">(Xie <a href="#ref-R-bookdown">2020</a>)</span> in this sample book, which was built on top of R Markdown and <strong>knitr</strong> <span class="citation">(Xie <a href="#ref-xie2015">2015</a>)</span>.</p>
+<div id="张量与矩阵的区别" class="section level2">
+<h2><span class="header-section-number">2.2</span> 1.2 张量与矩阵的区别？</h2>
+<ul>
+<li>从代数角度讲， 矩阵它是向量的推广。向量可以看成一维的“表格”（即分量按照顺序排成一排）， 矩阵是二维的“表格”（分量按照纵横位置排列）， 那么<span class="math inline">\(n\)</span>阶张量就是所谓的<span class="math inline">\(n\)</span>维的“表格”。 张量的严格定义是利用线性映射来描述。</li>
+<li>从几何角度讲， 矩阵是一个真正的几何量，也就是说，它是一个不随参照系的坐标变换而变化的东西。向量也具有这种特性。</li>
+<li>张量可以用3×3矩阵形式来表达。</li>
+<li>表示标量的数和表示向量的三维数组也可分别看作1×1，1×3的矩阵。</li>
+</ul>
+</div>
+<div id="矩阵和向量相乘结果" class="section level2">
+<h2><span class="header-section-number">2.3</span> 1.3 矩阵和向量相乘结果</h2>
+<p>​ 一个<span class="math inline">\(m\)</span>行<span class="math inline">\(n\)</span>列的矩阵和<span class="math inline">\(n\)</span>行向量相乘，最后得到就是一个<span class="math inline">\(m\)</span>行的向量。运算法则就是矩阵中的每一行数据看成一个行向量与该向量作点乘。</p>
+</div>
+<div id="向量和矩阵的范数归纳" class="section level2">
+<h2><span class="header-section-number">2.4</span> 1.4 向量和矩阵的范数归纳</h2>
+<p><strong>向量的范数</strong><br />
+​ 定义一个向量为：<span class="math inline">\(\vec{a}=[-5, 6, 8, -10]\)</span>。任意一组向量设为<span class="math inline">\(\vec{x}=(x_1,x_2,...,x_N)\)</span>。其不同范数求解如下：</p>
+<ul>
+<li>向量的1范数：向量的各个元素的绝对值之和，上述向量<span class="math inline">\(\vec{a}\)</span>的1范数结果就是：29。</li>
+</ul>
+<p><span class="math display">\[
+\Vert\vec{x}\Vert_1=\sum_{i=1}^N\vert{x_i}\vert
+\]</span></p>
+<ul>
+<li>向量的2范数：向量的每个元素的平方和再开平方根，上述<span class="math inline">\(\vec{a}\)</span>的2范数结果就是：15。</li>
+</ul>
+<p><span class="math display">\[
+\Vert\vec{x}\Vert_2=\sqrt{\sum_{i=1}^N{\vert{x_i}\vert}^2}
+\]</span></p>
+<ul>
+<li>向量的负无穷范数：向量的所有元素的绝对值中最小的：上述向量<span class="math inline">\(\vec{a}\)</span>的负无穷范数结果就是：5。</li>
+</ul>
+<p><span class="math display">\[
+\Vert\vec{x}\Vert_{-\infty}=\min{|{x_i}|}
+\]</span></p>
+<ul>
+<li>向量的正无穷范数：向量的所有元素的绝对值中最大的：上述向量<span class="math inline">\(\vec{a}\)</span>的正无穷范数结果就是：10。</li>
+</ul>
+<p><span class="math display">\[
+\Vert\vec{x}\Vert_{+\infty}=\max{|{x_i}|}
+\]</span></p>
+<ul>
+<li>向量的p范数：</li>
+</ul>
+<p><span class="math display">\[
+L_p=\Vert\vec{x}\Vert_p=\sqrt[p]{\sum_{i=1}^{N}|{x_i}|^p}
+\]</span></p>
+<p><strong>矩阵的范数</strong></p>
+<p>定义一个矩阵<span class="math inline">\(A=[-1, 2, -3; 4, -6, 6]\)</span>。 任意矩阵定义为：<span class="math inline">\(A_{m\times n}\)</span>，其元素为 <span class="math inline">\(a_{ij}\)</span>。</p>
+<p>矩阵的范数定义为</p>
+<p><span class="math display">\[
+\Vert{A}\Vert_p :=\sup_{x\neq 0}\frac{\Vert{Ax}\Vert_p}{\Vert{x}\Vert_p}
+\]</span></p>
+<p>当向量取不同范数时, 相应得到了不同的矩阵范数。</p>
+<ul>
+<li><strong>矩阵的1范数（列范数）</strong>：矩阵的每一列上的元素绝对值先求和，再从中取个最大的,（列和最大），上述矩阵<span class="math inline">\(A\)</span>的1范数先得到<span class="math inline">\([5,8,9]\)</span>，再取最大的最终结果就是：9。</li>
+</ul>
+<p><span class="math display">\[
+\Vert A\Vert_1=\max_{1\le j\le}\sum_{i=1}^m|{a_{ij}}|
+\]</span></p>
+<ul>
+<li><strong>矩阵的2范数</strong>：矩阵<span class="math inline">\(A^TA\)</span>的最大特征值开平方根，上述矩阵<span class="math inline">\(A\)</span>的2范数得到的最终结果是：10.0623。</li>
+</ul>
+<p><span class="math display">\[
+\Vert A\Vert_2=\sqrt{\lambda_{max}(A^T A)}
+\]</span></p>
+<p>其中， <span class="math inline">\(\lambda_{max}(A^T A)\)</span> 为 <span class="math inline">\(A^T A\)</span> 的特征值绝对值的最大值。 - <strong>矩阵的无穷范数（行范数）</strong>：矩阵的每一行上的元素绝对值先求和，再从中取个最大的，（行和最大），上述矩阵<span class="math inline">\(A\)</span>的1范数先得到<span class="math inline">\([6；16]\)</span>，再取最大的最终结果就是：16。</p>
+<p><span class="math display">\[
+\Vert A\Vert_{\infty}=\max_{1\le i \le n}\sum_{j=1}^n |{a_{ij}}|
+\]</span></p>
+<ul>
+<li><p><strong>矩阵的核范数</strong>：矩阵的奇异值（将矩阵svd分解）之和，这个范数可以用来低秩表示（因为最小化核范数，相当于最小化矩阵的秩——低秩），上述矩阵A最终结果就是：10.9287。</p></li>
+<li><strong>矩阵的L0范数</strong>：矩阵的非0元素的个数，通常用它来表示稀疏，L0范数越小0元素越多，也就越稀疏，上述矩阵<span class="math inline">\(A\)</span>最终结果就是：6。</li>
+<li><strong>矩阵的L1范数</strong>：矩阵中的每个元素绝对值之和，它是L0范数的最优凸近似，因此它也可以表示稀疏，上述矩阵<span class="math inline">\(A\)</span>最终结果就是：22。<br />
+</li>
+<li><p><strong>矩阵的F范数</strong>：矩阵的各个元素平方之和再开平方根，它通常也叫做矩阵的L2范数，它的优点在于它是一个凸函数，可以求导求解，易于计算，上述矩阵A最终结果就是：10.0995。</p></li>
+</ul>
+<p><span class="math display">\[
+\Vert A\Vert_F=\sqrt{(\sum_{i=1}^m\sum_{j=1}^n{| a_{ij}|}^2)}
+\]</span></p>
+<ul>
+<li><strong>矩阵的L21范数</strong>：矩阵先以每一列为单位，求每一列的F范数（也可认为是向量的2范数），然后再将得到的结果求L1范数（也可认为是向量的1范数），很容易看出它是介于L1和L2之间的一种范数，上述矩阵<span class="math inline">\(A\)</span>最终结果就是：17.1559。</li>
+<li><strong>矩阵的 p范数</strong></li>
+</ul>
+<p><span class="math display">\[
+\Vert A\Vert_p=\sqrt[p]{(\sum_{i=1}^m\sum_{j=1}^n{| a_{ij}|}^p)}
+\]</span></p>
+</div>
+<div id="如何判断一个矩阵为正定" class="section level2">
+<h2><span class="header-section-number">2.5</span> 1.5 如何判断一个矩阵为正定？</h2>
+<ul>
+<li>顺序主子式全大于0；<br />
+</li>
+<li>存在可逆矩阵<span class="math inline">\(C\)</span>使<span class="math inline">\(C^TC\)</span>等于该矩阵；</li>
+<li>正惯性指数等于<span class="math inline">\(n\)</span>；</li>
+<li>合同于单位矩阵<span class="math inline">\(E\)</span>（即：规范形为<span class="math inline">\(E\)</span>）</li>
+<li>标准形中主对角元素全为正；</li>
+<li>特征值全为正；</li>
+<li>是某基的度量矩阵。</li>
+</ul>
 
-</div>
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-xie2015">
-<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/" class="uri">http://yihui.name/knitr/</a>.</p>
-</div>
-<div id="ref-R-bookdown">
-<p>Xie, Yihui. 2020. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown" class="uri">https://CRAN.R-project.org/package=bookdown</a>.</p>
 </div>
 </div>
             </section>
@@ -367,7 +276,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["Deep Learning Book.pdf", "Deep Learning Book.epub"],
+"download": ["Deep-Learning-Book.pdf", "Deep-Learning-Book.epub"],
 "toc": {
 "collapse": "subsection"
 }
@@ -375,6 +284,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

@@ -30,46 +30,6 @@
 \urlstyle{same}  % don't use monospace font for urls
 \usepackage{natbib}
 \bibliographystyle{apalike}
-\usepackage{color}
-\usepackage{fancyvrb}
-\newcommand{\VerbBar}{|}
-\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
-\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
-% Add ',fontsize=\small' for more characters per line
-\usepackage{framed}
-\definecolor{shadecolor}{RGB}{248,248,248}
-\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
-\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{{#1}}}}
-\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{{#1}}}
-\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
-\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
-\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
-\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
-\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
-\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
-\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
-\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
-\newcommand{\ImportTok}[1]{{#1}}
-\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{{#1}}}}
-\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
-\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
-\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
-\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{{#1}}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
-\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
-\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{{#1}}}}
-\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{{#1}}}}
-\newcommand{\BuiltInTok}[1]{{#1}}
-\newcommand{\ExtensionTok}[1]{{#1}}
-\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{{#1}}}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{{#1}}}
-\newcommand{\RegionMarkerTok}[1]{{#1}}
-\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
-\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
-\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{{#1}}}
-\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{{#1}}}}
-\newcommand{\NormalTok}[1]{{#1}}
 \usepackage{longtable,booktabs}
 \usepackage{graphicx,grffile}
 \makeatletter
@@ -131,82 +91,202 @@
 
 \chapter{Introduction}\label{intro}
 
-You can label chapter and section titles using \texttt{\{\#label\}}
-after them, e.g., we can reference Chapter \ref{intro}. If you do not
-manually label them, there will be automatic labels anyway, e.g.,
-Chapter \ref{methods}.
+\section{1.1
+标量、向量、矩阵、张量之间的联系}\label{ux6807ux91cfux5411ux91cfux77e9ux9635ux5f20ux91cfux4e4bux95f4ux7684ux8054ux7cfb}
 
-Figures and tables with captions will be placed in \texttt{figure} and
-\texttt{table} environments, respectively.
+\textbf{标量（scalar）}\\
+一个标量表示一个单独的数，它不同于线性代数中研究的其他大部分对象（通常是多个数的数组）。我们用斜体表示标量。标量通常被赋予小写的变量名称。
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{par}\NormalTok{(}\DataTypeTok{mar =} \KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{, .}\DecValTok{1}\NormalTok{, .}\DecValTok{1}\NormalTok{))}
-\KeywordTok{plot}\NormalTok{(pressure, }\DataTypeTok{type =} \StringTok{'b'}\NormalTok{, }\DataTypeTok{pch =} \DecValTok{19}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+\textbf{向量（vector）}\\
+​一个向量表示一组有序排列的数。通过次序中的索引，我们可以确定每个单独的数。通常我们赋予向量粗体的小写变量名称，比如xx。向量中的元素可以通过带脚标的斜体表示。向量\(X\)的第一个元素是\(X_1\)，第二个元素是\(X_2\)，以此类推。我们也会注明存储在向量中的元素的类型（实数、虚数等）。
 
-\begin{figure}
+\textbf{矩阵（matrix）}\\
+​矩阵是具有相同特征和纬度的对象的集合，表现为一张二维数据表。其意义是一个对象表示为矩阵中的一行，一个特征表示为矩阵中的一列，每个特征都有数值型的取值。通常会赋予矩阵粗体的大写变量名称，比如\(A\)。
 
-{\centering \includegraphics[width=0.8\linewidth]{Deep-Learning-Book_files/figure-latex/nice-fig-1} 
+\textbf{张量（tensor）}\\
+​在某些情况下，我们会讨论坐标超过两维的数组。一般地，一个数组中的元素分布在若干维坐标的规则网格中，我们将其称之为张量。使用
+\(A\)
+来表示张量``A''。张量\(A\)中坐标为\((i,j,k)\)的元素记作\(A_{(i,j,k)}\)。
 
-}
+\textbf{四者之间关系}
 
-\caption{Here is a nice figure!}\label{fig:nice-fig}
-\end{figure}
+\begin{quote}
+标量是0阶张量，向量是一阶张量。举例：\\
+​标量就是知道棍子的长度，但是你不会知道棍子指向哪儿。\\
+​向量就是不但知道棍子的长度，还知道棍子指向前面还是后面。\\
+​张量就是不但知道棍子的长度，也知道棍子指向前面还是后面，还能知道这棍子又向上/下和左/右偏转了多少。
+\end{quote}
 
-Reference a figure by its code chunk label with the \texttt{fig:}
-prefix, e.g., see Figure \ref{fig:nice-fig}. Similarly, you can
-reference tables generated from \texttt{knitr::kable()}, e.g., see Table
-\ref{tab:nice-tab}.
+\section{1.2
+张量与矩阵的区别？}\label{ux5f20ux91cfux4e0eux77e9ux9635ux7684ux533aux522b}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{knitr::}\KeywordTok{kable}\NormalTok{(}
-  \KeywordTok{head}\NormalTok{(iris, }\DecValTok{20}\NormalTok{), }\DataTypeTok{caption =} \StringTok{'Here is a nice table!'}\NormalTok{,}
-  \DataTypeTok{booktabs =} \OtherTok{TRUE}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+\begin{itemize}
+\tightlist
+\item
+  从代数角度讲，
+  矩阵它是向量的推广。向量可以看成一维的``表格''（即分量按照顺序排成一排），
+  矩阵是二维的``表格''（分量按照纵横位置排列），
+  那么\(n\)阶张量就是所谓的\(n\)维的``表格''。
+  张量的严格定义是利用线性映射来描述。
+\item
+  从几何角度讲，
+  矩阵是一个真正的几何量，也就是说，它是一个不随参照系的坐标变换而变化的东西。向量也具有这种特性。
+\item
+  张量可以用3×3矩阵形式来表达。
+\item
+  表示标量的数和表示向量的三维数组也可分别看作1×1，1×3的矩阵。
+\end{itemize}
 
-\begin{table}
+\section{1.3
+矩阵和向量相乘结果}\label{ux77e9ux9635ux548cux5411ux91cfux76f8ux4e58ux7ed3ux679c}
 
-\caption{\label{tab:nice-tab}Here is a nice table!}
-\centering
-\begin{tabular}[t]{rrrrl}
-\toprule
-Sepal.Length & Sepal.Width & Petal.Length & Petal.Width & Species\\
-\midrule
-5.1 & 3.5 & 1.4 & 0.2 & setosa\\
-4.9 & 3.0 & 1.4 & 0.2 & setosa\\
-4.7 & 3.2 & 1.3 & 0.2 & setosa\\
-4.6 & 3.1 & 1.5 & 0.2 & setosa\\
-5.0 & 3.6 & 1.4 & 0.2 & setosa\\
-\addlinespace
-5.4 & 3.9 & 1.7 & 0.4 & setosa\\
-4.6 & 3.4 & 1.4 & 0.3 & setosa\\
-5.0 & 3.4 & 1.5 & 0.2 & setosa\\
-4.4 & 2.9 & 1.4 & 0.2 & setosa\\
-4.9 & 3.1 & 1.5 & 0.1 & setosa\\
-\addlinespace
-5.4 & 3.7 & 1.5 & 0.2 & setosa\\
-4.8 & 3.4 & 1.6 & 0.2 & setosa\\
-4.8 & 3.0 & 1.4 & 0.1 & setosa\\
-4.3 & 3.0 & 1.1 & 0.1 & setosa\\
-5.8 & 4.0 & 1.2 & 0.2 & setosa\\
-\addlinespace
-5.7 & 4.4 & 1.5 & 0.4 & setosa\\
-5.4 & 3.9 & 1.3 & 0.4 & setosa\\
-5.1 & 3.5 & 1.4 & 0.3 & setosa\\
-5.7 & 3.8 & 1.7 & 0.3 & setosa\\
-5.1 & 3.8 & 1.5 & 0.3 & setosa\\
-\bottomrule
-\end{tabular}
-\end{table}
+​
+一个\(m\)行\(n\)列的矩阵和\(n\)行向量相乘，最后得到就是一个\(m\)行的向量。运算法则就是矩阵中的每一行数据看成一个行向量与该向量作点乘。
 
-You can write citations, too. For example, we are using the
-\textbf{bookdown} package \citep{R-bookdown} in this sample book, which
-was built on top of R Markdown and \textbf{knitr} \citep{xie2015}.
+\section{1.4
+向量和矩阵的范数归纳}\label{ux5411ux91cfux548cux77e9ux9635ux7684ux8303ux6570ux5f52ux7eb3}
+
+\textbf{向量的范数}\\
+​
+定义一个向量为：\(\vec{a}=[-5, 6, 8, -10]\)。任意一组向量设为\(\vec{x}=(x_1,x_2,...,x_N)\)。其不同范数求解如下：
+
+\begin{itemize}
+\tightlist
+\item
+  向量的1范数：向量的各个元素的绝对值之和，上述向量\(\vec{a}\)的1范数结果就是：29。
+\end{itemize}
+
+\[
+\Vert\vec{x}\Vert_1=\sum_{i=1}^N\vert{x_i}\vert
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  向量的2范数：向量的每个元素的平方和再开平方根，上述\(\vec{a}\)的2范数结果就是：15。
+\end{itemize}
+
+\[
+\Vert\vec{x}\Vert_2=\sqrt{\sum_{i=1}^N{\vert{x_i}\vert}^2}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  向量的负无穷范数：向量的所有元素的绝对值中最小的：上述向量\(\vec{a}\)的负无穷范数结果就是：5。
+\end{itemize}
+
+\[
+\Vert\vec{x}\Vert_{-\infty}=\min{|{x_i}|}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  向量的正无穷范数：向量的所有元素的绝对值中最大的：上述向量\(\vec{a}\)的正无穷范数结果就是：10。
+\end{itemize}
+
+\[
+\Vert\vec{x}\Vert_{+\infty}=\max{|{x_i}|}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  向量的p范数：
+\end{itemize}
+
+\[
+L_p=\Vert\vec{x}\Vert_p=\sqrt[p]{\sum_{i=1}^{N}|{x_i}|^p}
+\]
+
+\textbf{矩阵的范数}
+
+定义一个矩阵\(A=[-1, 2, -3; 4, -6, 6]\)。
+任意矩阵定义为：\(A_{m\times n}\)，其元素为 \(a_{ij}\)。
+
+矩阵的范数定义为
+
+\[
+\Vert{A}\Vert_p :=\sup_{x\neq 0}\frac{\Vert{Ax}\Vert_p}{\Vert{x}\Vert_p}
+\]
+
+当向量取不同范数时, 相应得到了不同的矩阵范数。
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{矩阵的1范数（列范数）}：矩阵的每一列上的元素绝对值先求和，再从中取个最大的,（列和最大），上述矩阵\(A\)的1范数先得到\([5,8,9]\)，再取最大的最终结果就是：9。
+\end{itemize}
+
+\[
+\Vert A\Vert_1=\max_{1\le j\le}\sum_{i=1}^m|{a_{ij}}|
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{矩阵的2范数}：矩阵\(A^TA\)的最大特征值开平方根，上述矩阵\(A\)的2范数得到的最终结果是：10.0623。
+\end{itemize}
+
+\[
+\Vert A\Vert_2=\sqrt{\lambda_{max}(A^T A)}
+\]
+
+其中， \(\lambda_{max}(A^T A)\) 为 \(A^T A\) 的特征值绝对值的最大值。 -
+\textbf{矩阵的无穷范数（行范数）}：矩阵的每一行上的元素绝对值先求和，再从中取个最大的，（行和最大），上述矩阵\(A\)的1范数先得到\([6；16]\)，再取最大的最终结果就是：16。
+
+\[
+\Vert A\Vert_{\infty}=\max_{1\le i \le n}\sum_{j=1}^n |{a_{ij}}|
+\]
+
+\begin{itemize}
+\item
+  \textbf{矩阵的核范数}：矩阵的奇异值（将矩阵svd分解）之和，这个范数可以用来低秩表示（因为最小化核范数，相当于最小化矩阵的秩------低秩），上述矩阵A最终结果就是：10.9287。
+\item
+  \textbf{矩阵的L0范数}：矩阵的非0元素的个数，通常用它来表示稀疏，L0范数越小0元素越多，也就越稀疏，上述矩阵\(A\)最终结果就是：6。
+\item
+  \textbf{矩阵的L1范数}：矩阵中的每个元素绝对值之和，它是L0范数的最优凸近似，因此它也可以表示稀疏，上述矩阵\(A\)最终结果就是：22。\\
+\item
+  \textbf{矩阵的F范数}：矩阵的各个元素平方之和再开平方根，它通常也叫做矩阵的L2范数，它的优点在于它是一个凸函数，可以求导求解，易于计算，上述矩阵A最终结果就是：10.0995。
+\end{itemize}
+
+\[
+\Vert A\Vert_F=\sqrt{(\sum_{i=1}^m\sum_{j=1}^n{| a_{ij}|}^2)}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{矩阵的L21范数}：矩阵先以每一列为单位，求每一列的F范数（也可认为是向量的2范数），然后再将得到的结果求L1范数（也可认为是向量的1范数），很容易看出它是介于L1和L2之间的一种范数，上述矩阵\(A\)最终结果就是：17.1559。
+\item
+  \textbf{矩阵的 p范数}
+\end{itemize}
+
+\[
+\Vert A\Vert_p=\sqrt[p]{(\sum_{i=1}^m\sum_{j=1}^n{| a_{ij}|}^p)}
+\]
+
+\section{1.5
+如何判断一个矩阵为正定？}\label{ux5982ux4f55ux5224ux65adux4e00ux4e2aux77e9ux9635ux4e3aux6b63ux5b9a}
+
+\begin{itemize}
+\tightlist
+\item
+  顺序主子式全大于0；\\
+\item
+  存在可逆矩阵\(C\)使\(C^TC\)等于该矩阵；
+\item
+  正惯性指数等于\(n\)；
+\item
+  合同于单位矩阵\(E\)（即：规范形为\(E\)）
+\item
+  标准形中主对角元素全为正；
+\item
+  特征值全为正；
+\item
+  是某基的度量矩阵。
+\end{itemize}
 
 \chapter{Literature}\label{literature}
 
