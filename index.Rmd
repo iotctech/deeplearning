@@ -14,9 +14,13 @@ description: "This is a minimal example of using the bookdown package to write a
 
 # 写在前面
 
-Life, thin and light-off time and time again
+_Life, thin and light-off time and time again_
 
-Frivolous tireless
+_Frivolous tireless_
+
+生命，一次又一次轻薄过
+
+轻狂不知疲倦
 
 
 
