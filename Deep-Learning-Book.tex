@@ -1,5 +1,11 @@
-\documentclass[]{book}
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[12pt,a4paper,UTF8,twoside]{book}
+
 \usepackage{lmodern}
+\usepackage{setspace}
+\setstretch{1.25}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
@@ -8,30 +14,38 @@
   \usepackage[utf8]{inputenc}
 \else % if luatex or xelatex
   \ifxetex
-    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
   \else
     \usepackage{fontspec}
   \fi
-  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+
+    \setmainfont[]{Times New Roman}
+    \setsansfont[]{Arial}
+    \setmonofont[Mapping=tex-ansi]{Inconsolata}
 \fi
+
 % use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 % use microtype if available
 \IfFileExists{microtype.sty}{%
-\usepackage{microtype}
+\usepackage[]{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\usepackage[unicode=true]{hyperref}
+\usepackage{hyperref}
 \hypersetup{
             pdftitle={深度学习文档集},
             pdfauthor={贝塔},
+            pdfproducer={Pandoc, R Markdown, TinyTeX, knitr, bookdown, Stan},
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
-\usepackage{natbib}
-\bibliographystyle{apalike}
+\usepackage[margin=1.18in]{geometry}
 \usepackage{longtable,booktabs}
-\usepackage{graphicx,grffile}
+% Fix footnotes in tables (requires footnote package)
+\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{longtable}}{}
+\usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -40,12 +54,6 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\IfFileExists{parskip.sty}{%
-\usepackage{parskip}
-}{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -59,27 +67,140 @@
 \let\oldsubparagraph\subparagraph
 \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
-\usepackage{booktabs}
-\usepackage{amsthm}
+
+% set default figure placement to htbp
 \makeatletter
-\def\thm@space@setup{%
-  \thm@preskip=8pt plus 2pt minus 4pt
-  \thm@postskip=\thm@preskip
-}
+\def\fps@figure{htbp}
 \makeatother
 
+\usepackage[UTF8, heading, fontset=none]{ctex}
+\usepackage{amssymb,amsmath,amsfonts,mathrsfs}
+% \setCJKmainfont[ItalicFont={KaiTi_GB2312}, BoldFont={SimHei}]{SimSun}
+\setCJKmainfont[ItalicFont={CESI_KT_GB2312}, BoldFont={SimHei}]{SimSun}
+\setCJKsansfont{SimHei}
+% \setCJKmonofont{FangSong_GB2312}
+\setCJKmonofont{CESI_FS_GB2312}
+
+\setCJKfamilyfont{heiti}{SimHei}             
+\newcommand{\heiti}{\CJKfamily{heiti}}
+
+% \setCJKfamilyfont{kaishu}{KaiTi_GB2312}             
+\setCJKfamilyfont{kaishu}{CESI_KT_GB2312}             
+\newcommand{\kaishu}{\CJKfamily{kaishu}}
+
+\setCJKfamilyfont{songti}{SimSun}             
+\newcommand{\songti}{\CJKfamily{songti}}
+
+% \setCJKfamilyfont{fangsong}{FangSong_GB2312}             
+\setCJKfamilyfont{fangsong}{CESI_FS_GB2312}             
+\newcommand{\fangsong}{\CJKfamily{fangsong}}
+
+\usepackage{color}
+\ctexset{
+  chapter/name = {,},
+  chapter/number = \arabic{chapter},
+  chapter/numberformat = \sf,
+  chapter/beforeskip = 12pt,
+  chapter/afterskip = 18pt,
+  chapter/fixskip = true,
+  chapter/format += \sf\zihao{3},
+  section/numberformat = \rm,
+  section/format += \sf\zihao{4}\raggedright,
+  section/beforeskip = 16pt,
+  section/afterskip = 16pt,
+  section/fixskip = true,
+  subsection/numberformat = \rm,
+  subsection/format += \sf\zihao{-4}\raggedright,
+  subsection/fixskip = true,
+  subsection/beforeskip = 16pt,
+  subsection/afterskip = 16pt,
+  subsubsection/numberformat = \rm,
+  subsubsection/format += \sf\zihao{-4}\raggedright,
+  contentsname = {目\quad 录},
+}
+
+\usepackage[titles]{tocloft}
+\renewcommand{\cftdot}{$\ldotp$}
+\renewcommand{\cftdotsep}{0}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftchapdotsep}}
+\renewcommand{\cftchapdotsep}{\cftdotsep}
+
+\usepackage[lotdepth=2,lofdepth=2]{subfig}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrule}{\hrule height1pt width\headwidth \vspace{3.0pt}\hrule width\headwidth}
+% \fancyhead[EC]{\kaishu \zihao{5}中国矿业大学（北京）硕士学位论文}
+\fancyhead[EC]{\kaishu \zihao{5}https://iotctech.github.io/deeplearning}
+\fancyhead[OC]{\kaishu \zihao{5}\leftmark}
+\fancyfoot[C]{\thepage}
+
+\fancypagestyle{plain}{ \fancyhf{}
+% \fancyhead[EC]{\kaishu\zihao{5} 中国矿业大学（北京）硕士学位论文}
+\fancyhead[EC]{\kaishu\zihao{5} https://iotctech.github.io/deeplearning}
+\fancyhead[OC]{\kaishu\zihao{5} \leftmark}
+\fancyfoot[C]{\thepage}}
+
+\usepackage{array}
+\usepackage{multirow}
+\usepackage[table]{xcolor}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+
+\frontmatter
+
+\usepackage[super,square,sort]{natbib}
+\bibliographystyle{GBT7714-2005}
+
+
 \title{深度学习文档集}
+\providecommand{\subtitle}[1]{}
+\subtitle{Deep Learning Book}
 \author{贝塔}
 \date{2020-03-22}
 
+\usepackage{amsthm}
+\newtheorem{theorem}{定理}[chapter]
+\newtheorem{lemma}{引理}[chapter]
+\newtheorem{corollary}{推论}[chapter]
+\newtheorem{proposition}{命题}[chapter]
+\newtheorem{conjecture}{Conjecture}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{定义}[chapter]
+\theoremstyle{definition}
+\newtheorem{example}{例}[chapter]
+\theoremstyle{definition}
+\newtheorem{exercise}{练习}[chapter]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
 \begin{document}
-\maketitle
+% \maketitle
+
+%\input{latex/00a-cover.tex}  % 封面
+
+%\input{latex/00b-titlepage.tex}  % 标题
+
+%\input{latex/00c-declaration.tex}  % 声明
+
+%\input{latex/00d-abstract.tex}  % 摘要
 
 {
-\setcounter{tocdepth}{1}
+\setcounter{tocdepth}{2}
 \tableofcontents
 }
-\chapter{写在前面}\label{ux5199ux5728ux524dux9762}
+
+\hypertarget{ux5199ux5728ux524dux9762}{%
+\chapter{写在前面}\label{ux5199ux5728ux524dux9762}}
 
 \emph{Life, thin and light-off time and time again}
 
@@ -89,225 +210,353 @@
 
 轻狂不知疲倦
 
-\chapter{Introduction}\label{intro}
+\hypertarget{prepare}{%
+\chapter{基础知识}\label{prepare}}
 
-\section{1.1
-标量、向量、矩阵、张量之间的联系}\label{ux6807ux91cfux5411ux91cfux77e9ux9635ux5f20ux91cfux4e4bux95f4ux7684ux8054ux7cfb}
+作为第 \ref{models} 章统计模型和第 \ref{algorithms} 章参数估计的知识准备，本章给出主要的知识点。第 \ref{sec:exp} 节首先介绍指数族的一般形式，包含各成分的定义，特别介绍正态分布、二项分布和泊松分布情形下均值函数、联系函数和方差函数等特征量。第 \ref{sec:lse} 节介绍线性模型下，设计矩阵保持正定时的最小二乘估计和加权最小二乘估计。第 \ref{sec:def-mle} 节介绍极大似然估计的定义，相合性，以及在一定条件下的渐近正态性。第 \ref{sec:stationary-gaussian-process} 节介绍平稳高斯过程的定义，均方连续性和可微性的定义，以及判断可微性的一个充要条件。第 \ref{sec:bayes-prior} 介绍先验、后验分布和 Jeffreys 无信息先验分布。
 
-\textbf{标量（scalar）}\\
-一个标量表示一个单独的数，它不同于线性代数中研究的其他大部分对象（通常是多个数的数组）。我们用斜体表示标量。标量通常被赋予小写的变量名称。
+\hypertarget{sec:exp}{%
+\section{指数族}\label{sec:exp}}
 
-\textbf{向量（vector）}\\
-​一个向量表示一组有序排列的数。通过次序中的索引，我们可以确定每个单独的数。通常我们赋予向量粗体的小写变量名称，比如xx。向量中的元素可以通过带脚标的斜体表示。向量\(X\)的第一个元素是\(X_1\)，第二个元素是\(X_2\)，以此类推。我们也会注明存储在向量中的元素的类型（实数、虚数等）。
+一般地，随机变量 \(Y\) 的分布服从指数族，即形如
+\begin{equation}
+f_{Y}(y;\theta,\phi) = \exp\big\{ \big(y\theta - b(\theta) \big)/a(\phi) + c(y,\phi) \big\}
+\label{eq:common-exponential-family}
+\end{equation}
+\noindent 其中，\(a(\cdot),b(\cdot),c(\cdot)\) 是某些特定的函数。如果 \(\phi\) 已知，这是一个含有典则参数 \(\theta\) 的指数族模型，如果 \(\phi\) 未知，它可能是含有两个参数的指数族。对于正态分布
+\begin{equation}
+\begin{aligned}
+f_{Y}(y;\theta,\phi) & = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\{-\frac{(y - \mu)^2}{2\sigma^2}  \}  \\
+ & = \exp\big \{ (y\mu - \mu^2/2)/\sigma^2 - \frac{1}{2}\big(y^2/\sigma^2 + \log(2\pi\sigma^2)\big) \big\}
+\end{aligned} \label{eq:normal-distribution}
+\end{equation}
+\noindent 通过与 \eqref{eq:common-exponential-family} 式对比，可知 \(\theta = \mu\)，\(\phi = \sigma^2\)，并且有
+\[
+a(\phi) = \phi, \quad b(\theta) = \theta^2/2, \quad c(y,\phi) = - \frac{1}{2}\{ y^2/\sigma^2 + \log(2\pi\sigma^2) \} 
+\]
+\noindent 记 \(l(\theta,\phi;y) = \log f_{Y}(y;\theta,\phi)\) 为给定样本点 \(y\) 的情况下，关于 \(\theta\) 和 \(\phi\) 的对数似然函数。样本 \(Y\) 的均值和方差具有如下关系 \citep{McCullagh1989}
+\begin{equation}
+\mathsf{E}\big( \frac{\partial l}{\partial \theta} \big) = 0
+\label{eq:mean-log-lik}
+\end{equation}
+\noindent 和
+\begin{equation}
+\mathsf{E}\big( \frac{\partial^2 l}{\partial \theta^2} \big) + \mathsf{E}\big(\frac{\partial l}{\partial \theta}\big)^2  = 0
+\label{eq:variance-log-lik}
+\end{equation}
+\noindent 从 \eqref{eq:common-exponential-family} 式知
+\[ l(\theta,\phi;y) = {y\theta - b(\theta)}/a(\phi) + c(y,\phi) \]
+\noindent 因此，
+\begin{equation}
+\begin{aligned}
+\frac{\partial l}{\partial \theta} & = {y - b'(\theta)}/a(\phi)  \\
+\frac{\partial^2 l}{\partial \theta^2}  & = - b''(\theta)/a(\phi)
+\end{aligned} \label{eq:partial-log-lik}
+\end{equation}
+\noindent 从 \eqref{eq:mean-log-lik} 式和 \eqref{eq:partial-log-lik}，可以得出
+\[ 
+0 = \mathsf{E}\big( \frac{\partial l}{\partial \theta} \big) = \big\{ \mu - b'(\theta) \big\}/a(\phi)
+\]
+\noindent 所以
+\[ \mathsf{E}(Y) = \mu = b'(\theta) \]
+\noindent 根据 \eqref{eq:variance-log-lik} 式和 \eqref{eq:partial-log-lik} 式，可得
+\[ 0 = - \frac{b''(\theta)}{a(\phi)} + \frac{\mathsf{Var}(Y)}{a^2(\phi)} \]
+\noindent 所以
+\[ \mathsf{Var}(Y) = b''(\theta)a(\phi) \]
+可见，\(Y\) 的方差是两个函数的乘积，一个是 \(b''(\theta)\)， 它仅仅依赖典则参数，叫做方差函数，方差函数可以看作是 \(\mu\) 的函数，记作 \(V(\mu)\)。另一个是 \(a(\phi)\)，它独立于 \(\theta\)，仅仅依赖 \(\phi\)，函数 \(a(\phi)\) 通常形如
+\[ a(\phi) = \phi/w \]
+\noindent 其中 \(\phi\) 可由 \(\sigma^2\) 表示，故而也叫做发散参数 （dispersion parameter），是一个与样本观察值相关的常数，\(w\) 是已知的权重，随样本观察值变化。对正态分布模型而言，\(w\) 的分量是 \(m\) 个相互独立的样本观察值的均值，有 \(a(\phi) = \sigma^2/m\)，所以，\(w = m\)。
 
-\textbf{矩阵（matrix）}\\
-​矩阵是具有相同特征和纬度的对象的集合，表现为一张二维数据表。其意义是一个对象表示为矩阵中的一行，一个特征表示为矩阵中的一列，每个特征都有数值型的取值。通常会赋予矩阵粗体的大写变量名称，比如\(A\)。
+根据 \eqref{eq:common-exponential-family}式，正态、泊松和二项分布的特征见表 \ref{tab:common-characteristics}，符号约定同 McCullagh 和 Nelder （1989年） 所著的《广义线性模型》。
 
-\textbf{张量（tensor）}\\
-​在某些情况下，我们会讨论坐标超过两维的数组。一般地，一个数组中的元素分布在若干维坐标的规则网格中，我们将其称之为张量。使用
-\(A\)
-来表示张量``A''。张量\(A\)中坐标为\((i,j,k)\)的元素记作\(A_{(i,j,k)}\)。
+\begin{longtable}[]{@{}lccc@{}}
+\caption{\label{tab:common-characteristics} 指数族内常见的一元分布的共同特征及符号表示}\tabularnewline
+\toprule
+\begin{minipage}[b]{0.21\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[b]{0.22\columnwidth}\centering
+正态分布\strut
+\end{minipage} & \begin{minipage}[b]{0.22\columnwidth}\centering
+泊松分布\strut
+\end{minipage} & \begin{minipage}[b]{0.22\columnwidth}\centering
+二项分布\strut
+\end{minipage}\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+\begin{minipage}[b]{0.21\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[b]{0.22\columnwidth}\centering
+正态分布\strut
+\end{minipage} & \begin{minipage}[b]{0.22\columnwidth}\centering
+泊松分布\strut
+\end{minipage} & \begin{minipage}[b]{0.22\columnwidth}\centering
+二项分布\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.21\columnwidth}\raggedright
+记号\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+\(\mathcal{N}(\mu,\sigma^2)\)\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+\(\mathrm{Poisson}(\mu)\)\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+\(\mathrm{Binomial}(m,p)\)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.21\columnwidth}\raggedright
+\(y\) 取值范围\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+\((-\infty,\infty)\)\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+\(0(1)\infty\)\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+\(0(1)m\)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.21\columnwidth}\raggedright
+\(\phi\)\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+\(\phi = \sigma^2\)\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+\(1\)\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+\(1/m\)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.21\columnwidth}\raggedright
+\(b(\theta)\)\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+\(\theta^2/2\)\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+\(\exp(\theta)\)\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+\(\log(1+e^{\theta})\)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.21\columnwidth}\raggedright
+\(c(y;\theta)\)\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+\(-\frac{1}{2}\big( \frac{y^2}{\phi} + \log(2\pi\phi) \big)\)\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+\(-\log(y!)\)\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+\(\log\binom{m}{my}\)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.21\columnwidth}\raggedright
+\(\mu(\theta) = \mathsf{E}(Y;\theta)\)\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+\(\theta\)\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+\(\exp(\theta)\)\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+\(e^{\theta}/(1+e^{\theta})\)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.21\columnwidth}\raggedright
+联系函数：\(\theta(\mu)\)\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+identity\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+log\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+logit\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.21\columnwidth}\raggedright
+方差函数：\(V(\mu)\)\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+\(\mu\)\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
+\(\mu(1-\mu)\)\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
 
-\textbf{四者之间关系}
+\hypertarget{sec:lse}{%
+\section{最小二乘估计}\label{sec:lse}}
 
-\begin{quote}
-标量是0阶张量，向量是一阶张量。举例：\\
-​标量就是知道棍子的长度，但是你不会知道棍子指向哪儿。\\
-​向量就是不但知道棍子的长度，还知道棍子指向前面还是后面。\\
-​张量就是不但知道棍子的长度，也知道棍子指向前面还是后面，还能知道这棍子又向上/下和左/右偏转了多少。
-\end{quote}
+考虑如下线性模型的最小二乘估计
+\begin{equation}
+\mathsf{E}\mathbf{Y} = \mathbf{X}\boldsymbol{\beta} \qquad \mathsf{Var}(\mathbf{Y}) = \sigma^2 \mathbf{I}_{n} \label{eq:linear-models}
+\end{equation}
+\noindent 其中， \(\mathbf{Y}\) 为 \(n \times 1\) 维观测向量， \(\mathbf{X}\) 为已知的 \(n \times p (p \leq n)\) 维设计矩阵，\(\boldsymbol{\beta}\) 为 \(p \times 1\) 维未知参数，\(\sigma^2\) 未知，\(\mathbf{I}_{n}\) 为 \(n\) 阶单位阵。
+\BeginKnitrBlock{definition}[最小二乘估计]
+\protect\hypertarget{def:least-squares-estimate}{}{\label{def:least-squares-estimate} \iffalse (最小二乘估计) \fi{} }在模型 \eqref{eq:linear-models} 中，如果
+\begin{equation}
+(\mathbf{Y} - \mathbf{X}\hat{\boldsymbol{\beta}})^{\top}(\mathbf{Y} - \mathbf{X}\hat{\boldsymbol{\beta}}) = \min_{\beta}(\mathbf{Y} - \mathbf{X}\boldsymbol{\beta})^{\top}(\mathbf{Y} - \mathbf{X}\boldsymbol{\beta}) \label{eq:least-squares}
+\end{equation}
+\noindent 则称 \(\hat{\boldsymbol{\beta}}\) 为 \(\boldsymbol{\beta}\) 的最小二乘估计(简称 LSE)\citep{wang2004}。
+\EndKnitrBlock{definition}
 
-\section{1.2
-张量与矩阵的区别？}\label{ux5f20ux91cfux4e0eux77e9ux9635ux7684ux533aux522b}
+\BeginKnitrBlock{theorem}[最小二乘估计]
+\protect\hypertarget{thm:unbiased}{}{\label{thm:unbiased} \iffalse (最小二乘估计) \fi{} }若模型 \eqref{eq:linear-models} 中的 \(\mathbf{X}\) 是列满秩的矩阵，则 \(\boldsymbol{\beta}\) 的最小二乘估计为
+\[
+\hat{\boldsymbol{\beta}}_{LS} = ( \mathbf{X}^{\top}\mathbf{X} )^{-1}\mathbf{X}^{\top} \mathbf{Y}, \quad  \mathsf{Var}(\hat{\boldsymbol{\beta}}_{LS}) = \sigma^2 (\mathbf{X}^{\top}\mathbf{X})^{-1}  
+\]
+\noindent \(\sigma^2\) 的最小二乘估计为
+\[
+\hat{\sigma^2}_{LS} = (\mathbf{Y} - \mathbf{X}\hat{\boldsymbol{\beta}}_{LS})^{\top}(\mathbf{Y} - \mathbf{X}\hat{\boldsymbol{\beta}}_{LS})/(n - p)
+\]
+若将模型 \eqref{eq:linear-models} 的条件 \(\mathsf{Var}(\mathbf{Y}) = \sigma^2 \mathbf{I}_{n}\) 改为 \(\mathsf{Var}(\mathbf{Y}) = \sigma^2 \mathbf{G}\)， \(\mathbf{G}(>0)\) 为已知正定阵，则\(\boldsymbol{\beta}\) 的最小二乘估计为
+\[
+\tilde{\boldsymbol{\beta}}_{LS} = ( \mathbf{X}^{\top} \mathbf{G}^{-1} \mathbf{X})^{-1} \mathbf{X}^{\top} \mathbf{G}^{-1} \mathbf{Y} 
+\]
+\noindent 称 \(\tilde{\boldsymbol{\beta}}_{LS}\) 为广义最小二乘估计，特别地，当 \(\mathbf{G} = \mathrm{diag}(\sigma^2_{1},\ldots,\sigma^2_{n})\)，\(\sigma^2_{i},i = 1,\ldots,n\) 已知时，称 \(\tilde{\boldsymbol{\beta}}_{LS}\) 为加权最小二乘估计\citep{wang2004}。
+\EndKnitrBlock{theorem}
 
-\begin{itemize}
+\hypertarget{sec:def-mle}{%
+\section{极大似然估计}\label{sec:def-mle}}
+
+\BeginKnitrBlock{definition}[极大似然估计]
+\protect\hypertarget{def:maximum-likelihood-estimate}{}{\label{def:maximum-likelihood-estimate} \iffalse (极大似然估计) \fi{} }设 \(p(\mathbf{x};\boldsymbol{\theta}),\boldsymbol{\theta} \in \boldsymbol{\Theta}\) 是 \((\mathbb{R}^n,\mathscr{P}_{\mathbb{R}^n})\) 上的一族联合密度函数，对给定的 \(\mathbf{x}\)，称
+\[ L(\boldsymbol{\theta};\mathbf{x}) = kp(\mathbf{x};\boldsymbol{\theta}) \]
+\noindent 为 \(\boldsymbol{\theta}\) 的似然函数，其中 \(k > 0\) 是不依赖于 \(\boldsymbol{\theta}\) 的量，常取 \(k=1\)。进一步，若存在 \((\mathbb{R}^n,\mathscr{P}_{\mathbb{R}^n})\) 到 \((\boldsymbol{\Theta},\mathscr{P}_{\boldsymbol{\Theta}})\) 的统计量 \(\hat{\boldsymbol{\theta}}(\mathbf{x})\) 使
+\[ L(\hat{\boldsymbol{\theta}}(\mathbf{x});\mathbf{x}) = \sup_{\boldsymbol{\theta}} L(\boldsymbol{\theta};\mathbf{x}) \]
+\noindent 则 \(\hat{\boldsymbol{\theta}}(\mathbf{x})\) 称为 \(\boldsymbol{\theta}\) 的一个极大似然估计（简称 MLE）\citep{mao2006}。
+\EndKnitrBlock{definition}
+
+概率密度函数很多可以写成具有指数函数的形式，如指数族，采用似然函数的对数通常更为简便。称
+\[ l(\boldsymbol{\theta},\mathbf{x}) = \ln L(\boldsymbol{\theta},\mathbf{x}) \]
+\noindent 为 \(\boldsymbol{\theta}\) 的对数似然函数。对数变换是严格单调的，所以 \(l(\boldsymbol{\theta},\mathbf{x})\) 与 \(L(\boldsymbol{\theta},\mathbf{x})\) 的极大值是等价的。当 MLE 存在时，寻找 MLE 的常用方法是求导数。如果 \(\hat{\boldsymbol{\theta}}(\mathbf{x})\) 是 \(\boldsymbol{\Theta}\) 的内点，则 \(\hat{\boldsymbol{\theta}}(\mathbf{x})\) 是下列似然方程组
+\begin{equation}
+\partial l(\boldsymbol{\theta},\mathbf{x})/ \partial \boldsymbol{\theta}_{i} = 0, \quad i = 1,\ldots, m \label{eq:likelihood-equations}
+\end{equation}
+\noindent 的解。\(p(\mathbf{x};\boldsymbol{\theta})\) 属于指数族时，似然方程组 \eqref{eq:likelihood-equations} 的解唯一\citep{mao2006}。
+
+\BeginKnitrBlock{theorem}[相合性]
+\protect\hypertarget{thm:consistency}{}{\label{thm:consistency} \iffalse (相合性) \fi{} }设 \(x_{1}, \ldots, x_{n}\) 是来自概率密度函数 \(p(\mathbf{x};\boldsymbol{\theta})\) 的一个样本，叙述简单起见，考虑单参数情形，参数空间 \(\boldsymbol{\Theta}\) 是一个开区间，\(l(\boldsymbol{\theta};\mathbf{x}) = \sum_{i=1}^{n}\ln p(x_{i};\boldsymbol{\theta})\)。
+
+若 \(\ln (p;\boldsymbol{\theta})\) 在 \(\boldsymbol{\Theta}\) 上可微，且 \(p(\mathbf{x};\boldsymbol{\theta})\) 是可识别的（即 \(\forall \boldsymbol{\theta}_1 \neq \boldsymbol{\theta}_2, \{\mathbf{x}: p(\mathbf{x};\boldsymbol{\theta}_1) \neq p(\mathbf{x}; \boldsymbol{\theta}_2)\}\) 不是零测集），则似然方程 \eqref{eq:likelihood-equations} 在 \(n \to \infty\) 时，以概率 \(1\) 有解，且此解关于 \(\boldsymbol{\theta}\) 是相合的\citep{mao2006}。
+\EndKnitrBlock{theorem}
+
+\BeginKnitrBlock{theorem}[渐近正态性]
+\protect\hypertarget{thm:asymptotic-normality}{}{\label{thm:asymptotic-normality} \iffalse (渐近正态性) \fi{} }假设 \(\boldsymbol{\Theta}\) 为开区间，概率密度函数 \(p(\mathbf{x};\boldsymbol{\theta}), \boldsymbol{\theta} \in \boldsymbol{\Theta}\) 满足：
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  从代数角度讲，
-  矩阵它是向量的推广。向量可以看成一维的``表格''（即分量按照顺序排成一排），
-  矩阵是二维的``表格''（分量按照纵横位置排列），
-  那么\(n\)阶张量就是所谓的\(n\)维的``表格''。
-  张量的严格定义是利用线性映射来描述。
+  在参数真值 \(\boldsymbol{\theta}_{0}\) 的邻域内，\(\partial \ln p/\partial \boldsymbol{\theta}, \partial^2 \ln p/\partial \boldsymbol{\theta}^2, \partial^3 \ln p/\partial \boldsymbol{\theta}^3\) 对所有的 \(\mathbf{x}\) 都存在；
 \item
-  从几何角度讲，
-  矩阵是一个真正的几何量，也就是说，它是一个不随参照系的坐标变换而变化的东西。向量也具有这种特性。
+  在参数真值 \(\boldsymbol{\theta}_{0}\) 的邻域内，\(| \partial^3 \ln p/\partial \boldsymbol{\theta}^3 | \leq H(\mathbf{x})\)，且 \(\mathsf{E}H(\mathbf{x}) < \infty\)；
 \item
-  张量可以用3×3矩阵形式来表达。
-\item
-  表示标量的数和表示向量的三维数组也可分别看作1×1，1×3的矩阵。
-\end{itemize}
+  在参数真值 \(\boldsymbol{\theta}_{0}\) 处，\(\mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p'(\mathbf{x},\boldsymbol{\theta}_{0}) }{ p(\mathbf{x},\boldsymbol{\theta}_{0}) } \big] = 0,\mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p''(\mathbf{x},\boldsymbol{\theta}_{0}) }{ p(\mathbf{x},\boldsymbol{\theta}_{0}) } \big] = 0,I(\boldsymbol{\theta}_{0}) = \mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p'(\mathbf{x},\boldsymbol{\theta}_{0}) }{ p(\mathbf{x},\boldsymbol{\theta}_{0}) } \big]^{2} > 0\)。
+\end{enumerate}
 
-\section{1.3
-矩阵和向量相乘结果}\label{ux77e9ux9635ux548cux5411ux91cfux76f8ux4e58ux7ed3ux679c}
+\noindent 其中，撇号表示对 \(\boldsymbol{\theta}\) 的微分。记 \(\hat{\boldsymbol{\theta}}_{n}\) 为 \(n \to \infty\) 时，似然方程组的相合解，则\(\sqrt{n}(\hat{\boldsymbol{\theta}}_{n} - \boldsymbol{\theta}_{0}) \longrightarrow \mathcal{N}(\mathbf{0},I^{-1}(\boldsymbol{\theta}))\)\citep{mao2006}。
+\EndKnitrBlock{theorem}
 
-​
-一个\(m\)行\(n\)列的矩阵和\(n\)行向量相乘，最后得到就是一个\(m\)行的向量。运算法则就是矩阵中的每一行数据看成一个行向量与该向量作点乘。
+\hypertarget{sec:stationary-gaussian-process}{%
+\section{平稳高斯过程}\label{sec:stationary-gaussian-process}}
 
-\section{1.4
-向量和矩阵的范数归纳}\label{ux5411ux91cfux548cux77e9ux9635ux7684ux8303ux6570ux5f52ux7eb3}
+一般地，空间高斯过程 \(\mathcal{S} = \{S(x),x\in\mathbb{R}^2\}\) 必须满足条件：任意给定一组空间位置 \(x_1,x_2,\ldots,x_n, \forall x_{i} \in \mathbb{R}^2\)， 每个位置上对应的随机变量 \(S(x_i), i = 1,2,\ldots,n\) 的联合分布 \(\mathcal{S} = \{S(x_1), S(x_2),\ldots,S(x_n)\}\) 是多元高斯分布，其由均值 \(\mu(x) = \mathsf{E}[S(x)]\) 和协方差 \(G_{ij} = \gamma(x_i,x_j) = \mathsf{Cov}\{S(x_i),S(x_j)\}\) 完全确定，即 \(\mathcal{S} \sim \mathcal{N}(\mu_{S},G)\)。
 
-\textbf{向量的范数}\\
-​
-定义一个向量为：\(\vec{a}=[-5, 6, 8, -10]\)。任意一组向量设为\(\vec{x}=(x_1,x_2,...,x_N)\)。其不同范数求解如下：
+平稳空间高斯过程需要空间高斯过程满足平稳性条件：其一， \(\mu(x) = \mu, \forall x \in \mathbb{R}^2\)， 其二，自协方差函数 \(\gamma(x_i,x_j) = \gamma(u),u=\|x_{i} - x_{j}\|\)。 可见均值 \(\mu\) 是一个常数， 而自协方差函数 \(\gamma(x_i,x_j)\) 只与空间距离有关。
 
-\begin{itemize}
+平稳高斯过程 \(\mathcal{S}\) 的方差是一个常数，即 \(\sigma^2 = \gamma(0)\)， 然后可以定义自相关函数 \(\rho(u) = \gamma(u)/\sigma^2\)， 并且 \(\rho(u)\) 是关于空间距离\(u\)对称的，即 \(\rho(u) = \rho(-u)\)。 因为对 \(\forall u, \mathsf{Corr}\{S(x),S(x-u)\} = \mathsf{Corr}\{S(x-u), S(x)\} = \mathsf{Corr}\{S(x),S(x+u)\}\)， 这里的第二个等式是根据平稳性得来的， 由协方差的定义不难验证。 如果不特别说明， 平稳就指上述协方差意义下的平稳， 因为这种平稳性条件广泛应用于空间数据的统计建模。不失一般性，介绍一维空间下随机过程 \(S(x)\) 的均方连续性和可微性定义。
+
+\BeginKnitrBlock{definition}[连续性和可微性]
+\protect\hypertarget{def:continuous-differentiable}{}{\label{def:continuous-differentiable} \iffalse (连续性和可微性) \fi{} }随机过程 \(S(x)\) 满足
+\[ \lim_{h \to 0} \mathsf{E}\big[ \{S(x + h) - S(x)\}^{2} \big] = 0 \]
+\noindent 则称 \(S(x)\) 是均方连续（mean-square continuous）的。随机过程 \(S(x)\) 满足
+\[ \lim_{h \to 0} \mathsf{E} \big[ \{ \frac{S(x+h) - S(x)}{h} - S'(x) \}^2 \big] = 0 \]
+\noindent 则称 \(S(x)\) 是均方可微（mean-square differentiable）的，并且 \(S'(x)\) 就是均方意义下的一阶导数。如果 \(S'(x)\) 是均方可微的，则 \(S(x)\) 是二次均方可微的，随机过程 \(S(x)\) 的高阶均方可微性可类似定义\citep{Diggle2007}。Bartlett （1955 年） \citep{Bartlett1955} 得到如下重要结论
+\EndKnitrBlock{definition}
+
+\BeginKnitrBlock{theorem}[平稳随机过程的可微性]
+\protect\hypertarget{thm:stationary-mean-square-properties}{}{\label{thm:stationary-mean-square-properties} \iffalse (平稳随机过程的可微性) \fi{} }自相关函数为 \(\rho(u)\) 的平稳随机过程是 \(k\) 次均方可微的，当且仅当 \(\rho(u)\) 在 \(u = 0\) 处是 \(2k\) 次可微的。
+\EndKnitrBlock{theorem}
+
+\hypertarget{sec:bayes-prior}{%
+\section{先验和后验分布}\label{sec:bayes-prior}}
+
+贝叶斯推断中，常涉及模型参数的先验、后验分布，以及一种特殊的无信息先验分布 --- Jeffreys 先验，下面分别给出它们的概念定义\citep{mao2006}。
+
+\BeginKnitrBlock{definition}[先验分布]
+\protect\hypertarget{def:prior-distribution}{}{\label{def:prior-distribution} \iffalse (先验分布) \fi{} }参数空间 \(\Theta\) 上的任一概率分布都称作先验分布 （prior distribution）\citep{mao2006}。
+\EndKnitrBlock{definition}
+
+\BeginKnitrBlock{definition}[后验分布]
+\protect\hypertarget{def:posterior-distribution}{}{\label{def:posterior-distribution} \iffalse (后验分布) \fi{} }在获得样本 \(\mathbf{Y}\) 后，模型参数 \(\boldsymbol{\theta}\) 的后验分布 （posterior distribution） 就是在给定样本 \(\mathbf{Y}\) 的条件下 \(\boldsymbol{\theta}\) 的分布\citep{mao2006}。
+\EndKnitrBlock{definition}
+
+\BeginKnitrBlock{definition}[Jeffreys 先验分布]
+\protect\hypertarget{def:Jeffreys-prior-distribution}{}{\label{def:Jeffreys-prior-distribution} \iffalse (Jeffreys 先验分布) \fi{} }设 \(\mathbf{x} = (x_1,\ldots,x_n)\) 是来自密度函数 \(p(x|\boldsymbol{\theta})\) 的一个样本，其中 \(\boldsymbol{\theta} = (\theta_1,\ldots,\theta_p)\) 是 \(p\) 维参数向量。在对 \(\boldsymbol{\theta}\) 无任何先验信息可用时， Jeffreys （1961年）利用变换群和 Harr 测度导出 \(\boldsymbol{\theta}\) 的无信息先验分布可用 Fisher 信息阵的行列式的平方根表示。这种无信息先验分布常称为 Jeffreys 先验分布。其求取步骤如下：
+\EndKnitrBlock{definition}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  向量的1范数：向量的各个元素的绝对值之和，上述向量\(\vec{a}\)的1范数结果就是：29。
-\end{itemize}
-
-\[
-\Vert\vec{x}\Vert_1=\sum_{i=1}^N\vert{x_i}\vert
-\]
-
-\begin{itemize}
-\tightlist
+  写出样本的对数似然函数 \(l(\boldsymbol{\theta}|x) = \sum_{i=1}^{n}\ln p(x_i | \boldsymbol{\theta})\)；
 \item
-  向量的2范数：向量的每个元素的平方和再开平方根，上述\(\vec{a}\)的2范数结果就是：15。
-\end{itemize}
-
-\[
-\Vert\vec{x}\Vert_2=\sqrt{\sum_{i=1}^N{\vert{x_i}\vert}^2}
-\]
-
-\begin{itemize}
-\tightlist
+  算出参数 \(\boldsymbol{\theta}\) 的 Fisher 信息阵 \[\mathbf{I}(\boldsymbol{\theta}) = \mathsf{E}_{x|\theta} \big( - \frac{\partial^2 l}{\partial \theta_i \partial \theta_j} \big)_{i,j=1,\ldots,p}\] 在单参数场合， \(\mathbf{I}(\theta) = \mathsf{E}_{x|\theta} \big( - \frac{\partial^2 l}{\partial \theta^2} \big)\)；
 \item
-  向量的负无穷范数：向量的所有元素的绝对值中最小的：上述向量\(\vec{a}\)的负无穷范数结果就是：5。
-\end{itemize}
+  \(\boldsymbol{\theta}\) 的无信息先验密度函数为 \(\pi(\boldsymbol{\theta}) = [\det \mathbf{I}(\boldsymbol{\theta}) ]^{1/2}\)，在单参数场合， \(\pi(\boldsymbol{\theta}) = [\mathbf{I}(\theta) ]^{1/2}\)\citep{mao2006}。
+\end{enumerate}
 
-\[
-\Vert\vec{x}\Vert_{-\infty}=\min{|{x_i}|}
-\]
+\hypertarget{sec:bayes-estimates}{%
+\section{常用贝叶斯估计}\label{sec:bayes-estimates}}
 
-\begin{itemize}
-\tightlist
-\item
-  向量的正无穷范数：向量的所有元素的绝对值中最大的：上述向量\(\vec{a}\)的正无穷范数结果就是：10。
-\end{itemize}
+\BeginKnitrBlock{theorem}[平方损失]
+\protect\hypertarget{thm:bayes-estimate-square}{}{\label{thm:bayes-estimate-square} \iffalse (平方损失) \fi{} }在给定先验分布 \(\pi(\boldsymbol{\theta})\) 和平方损失 \(L(\boldsymbol{\theta},\boldsymbol{\delta}) = (\boldsymbol{\delta} - \boldsymbol{\theta})^2\) 下，\(\boldsymbol{\theta}\) 的贝叶斯估计 \(\boldsymbol{\delta}^{\pi}(x)\) 为后验分布 \(\pi(\boldsymbol{\theta}|x)\) 的均值，即 \(\boldsymbol{\delta}^{\pi}(x) = \mathsf{E}(\boldsymbol{\theta}|x)\)\citep{mao2006}。
+\EndKnitrBlock{theorem}
 
-\[
-\Vert\vec{x}\Vert_{+\infty}=\max{|{x_i}|}
-\]
+\BeginKnitrBlock{theorem}[0 - 1 损失]
+\protect\hypertarget{thm:bayes-estimate-01}{}{\label{thm:bayes-estimate-01} \iffalse (0 - 1 损失) \fi{} }在给定先验分布 \(\pi(\boldsymbol{\theta})\) 和 \(0\) - \(1\) 损失函数
 
-\begin{itemize}
-\tightlist
-\item
-  向量的p范数：
-\end{itemize}
+\begin{equation*}
+L(\boldsymbol{\theta},\boldsymbol{\delta}) = 
+\begin{cases}
+1, & | \boldsymbol{\delta} - \boldsymbol{\theta}| \leq \epsilon \\
+0, & | \boldsymbol{\delta} - \boldsymbol{\theta}| > \epsilon
+\end{cases}
+\end{equation*}
 
-\[
-L_p=\Vert\vec{x}\Vert_p=\sqrt[p]{\sum_{i=1}^{N}|{x_i}|^p}
-\]
+当 \(\epsilon\) 较小时，\(\boldsymbol{\theta}\) 的贝叶斯估计\(\boldsymbol{\delta}^{\pi}(x)\)为后验分布 \(\pi(\boldsymbol{\theta}|x)\) 的众数\citep{mao2006}。
+\EndKnitrBlock{theorem}
 
-\textbf{矩阵的范数}
+\BeginKnitrBlock{theorem}[绝对值损失]
+\protect\hypertarget{thm:bayes-estimate-abs}{}{\label{thm:bayes-estimate-abs} \iffalse (绝对值损失) \fi{} }在给定先验分布 \(\pi(\boldsymbol{\theta})\) 和绝对损失函数 \(L(\boldsymbol{\theta},\boldsymbol{\delta}) = |\boldsymbol{\delta} - \boldsymbol{\theta}|\) 下，\(\boldsymbol{\theta}\) 的贝叶斯估计 \(\boldsymbol{\delta}^{\pi}(x)\) 为后验分布 \(\pi(\boldsymbol{\theta}|x)\) 的中位数\citep{mao2006}。
+\EndKnitrBlock{theorem}
 
-定义一个矩阵\(A=[-1, 2, -3; 4, -6, 6]\)。
-任意矩阵定义为：\(A_{m\times n}\)，其元素为 \(a_{ij}\)。
+评价贝叶斯估计 \(\boldsymbol{\delta}^{\pi}(x)\) 的精度常用后验均方误差
+\[\mathsf{MSE}(\boldsymbol{\delta}^{\pi}|x) = \mathsf{E}_{\boldsymbol{\theta}|x}(\boldsymbol{\delta}^{\pi} - \boldsymbol{\theta})^2\]
+表示，或用其平方根\([\mathsf{MSE}(\boldsymbol{\delta}^{\pi}|x)]^{1/2}\) （称为标准误）表示。容易算得
+\[\mathsf{MSE}(\boldsymbol{\delta}^{\pi}|x) = \mathsf{Var}(\boldsymbol{\delta}^{\pi}|x) + [\boldsymbol{\delta}^{\pi}(x) - \mathsf{E}(\boldsymbol{\theta}|x)]^2\]
+可见，当贝叶斯估计\(\boldsymbol{\delta}^{\pi}(x)\)为后验均值时，贝叶斯估计的精度就用\(\boldsymbol{\delta}^{\pi}\)的后验方差\(\mathsf{Var}(\boldsymbol{\delta}^{\pi}|x)\) 表示，或用后验标准差 \([\mathsf{Var}(\boldsymbol{\delta}^{\pi}|x)]^{1/2}\) 表示 \citep{mao2006}。
 
-矩阵的范数定义为
+\hypertarget{sec:foundations}{%
+\section{本章小结}\label{sec:foundations}}
 
-\[
-\Vert{A}\Vert_p :=\sup_{x\neq 0}\frac{\Vert{Ax}\Vert_p}{\Vert{x}\Vert_p}
-\]
+本章第\ref{sec:exp}节介绍了指数族的一般形式，指出基于样本点的对数似然函数和样本均值、样本方差的关系，以表格的形式列出了正态、泊松和二项分布的各个特征，为第\ref{models}章统计模型和第\ref{algorithms}章参数估计作铺垫。接着，第\ref{sec:lse}节和第\ref{sec:def-mle}节分别介绍了最小二乘估计和极大似然估计的定义、性质，给出了线性模型的最小二乘估计，极大似然估计的相合性和渐进正态性。第\ref{sec:stationary-gaussian-process}节介绍了平稳高斯过程，给出了其均方连续性、可微性定义以及一个均方可微的判断定理，平稳高斯过程作为空间随机效应的实现，多次出现在后续章节中。第\ref{sec:bayes-prior}节至第\ref{sec:bayes-estimates}节分别是与贝叶斯相关的概念定义。
 
-当向量取不同范数时, 相应得到了不同的矩阵范数。
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{矩阵的1范数（列范数）}：矩阵的每一列上的元素绝对值先求和，再从中取个最大的,（列和最大），上述矩阵\(A\)的1范数先得到\([5,8,9]\)，再取最大的最终结果就是：9。
-\end{itemize}
-
-\[
-\Vert A\Vert_1=\max_{1\le j\le}\sum_{i=1}^m|{a_{ij}}|
-\]
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{矩阵的2范数}：矩阵\(A^TA\)的最大特征值开平方根，上述矩阵\(A\)的2范数得到的最终结果是：10.0623。
-\end{itemize}
-
-\[
-\Vert A\Vert_2=\sqrt{\lambda_{max}(A^T A)}
-\]
-
-其中， \(\lambda_{max}(A^T A)\) 为 \(A^T A\) 的特征值绝对值的最大值。 -
-\textbf{矩阵的无穷范数（行范数）}：矩阵的每一行上的元素绝对值先求和，再从中取个最大的，（行和最大），上述矩阵\(A\)的1范数先得到\([6；16]\)，再取最大的最终结果就是：16。
-
-\[
-\Vert A\Vert_{\infty}=\max_{1\le i \le n}\sum_{j=1}^n |{a_{ij}}|
-\]
-
-\begin{itemize}
-\item
-  \textbf{矩阵的核范数}：矩阵的奇异值（将矩阵svd分解）之和，这个范数可以用来低秩表示（因为最小化核范数，相当于最小化矩阵的秩------低秩），上述矩阵A最终结果就是：10.9287。
-\item
-  \textbf{矩阵的L0范数}：矩阵的非0元素的个数，通常用它来表示稀疏，L0范数越小0元素越多，也就越稀疏，上述矩阵\(A\)最终结果就是：6。
-\item
-  \textbf{矩阵的L1范数}：矩阵中的每个元素绝对值之和，它是L0范数的最优凸近似，因此它也可以表示稀疏，上述矩阵\(A\)最终结果就是：22。\\
-\item
-  \textbf{矩阵的F范数}：矩阵的各个元素平方之和再开平方根，它通常也叫做矩阵的L2范数，它的优点在于它是一个凸函数，可以求导求解，易于计算，上述矩阵A最终结果就是：10.0995。
-\end{itemize}
-
-\[
-\Vert A\Vert_F=\sqrt{(\sum_{i=1}^m\sum_{j=1}^n{| a_{ij}|}^2)}
-\]
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{矩阵的L21范数}：矩阵先以每一列为单位，求每一列的F范数（也可认为是向量的2范数），然后再将得到的结果求L1范数（也可认为是向量的1范数），很容易看出它是介于L1和L2之间的一种范数，上述矩阵\(A\)最终结果就是：17.1559。
-\item
-  \textbf{矩阵的 p范数}
-\end{itemize}
-
-\[
-\Vert A\Vert_p=\sqrt[p]{(\sum_{i=1}^m\sum_{j=1}^n{| a_{ij}|}^p)}
-\]
-
-\section{1.5
-如何判断一个矩阵为正定？}\label{ux5982ux4f55ux5224ux65adux4e00ux4e2aux77e9ux9635ux4e3aux6b63ux5b9a}
-
-\begin{itemize}
-\tightlist
-\item
-  顺序主子式全大于0；\\
-\item
-  存在可逆矩阵\(C\)使\(C^TC\)等于该矩阵；
-\item
-  正惯性指数等于\(n\)；
-\item
-  合同于单位矩阵\(E\)（即：规范形为\(E\)）
-\item
-  标准形中主对角元素全为正；
-\item
-  特征值全为正；
-\item
-  是某基的度量矩阵。
-\end{itemize}
-
-\chapter{Literature}\label{literature}
+\hypertarget{literature}{%
+\chapter{Literature}\label{literature}}
 
 Here is a review of existing methods.
 
-\chapter{Methods}\label{methods}
+\hypertarget{methods}{%
+\chapter{Methods}\label{methods}}
 
 We describe our methods in this chapter.
 
-\chapter{Applications}\label{applications}
+\hypertarget{applications}{%
+\chapter{Applications}\label{applications}}
 
 Some \emph{significant} applications are demonstrated in this chapter.
 
-\section{Example one}\label{example-one}
+\hypertarget{example-one}{%
+\section{Example one}\label{example-one}}
 
-\section{Example two}\label{example-two}
+\hypertarget{example-two}{%
+\section{Example two}\label{example-two}}
 
-\chapter{Final Words}\label{final-words}
+\hypertarget{final-words}{%
+\chapter{Final Words}\label{final-words}}
 
 We have finished a nice book.
 
-\bibliography{book.bib,packages.bib}
+
+\backmatter
+% \printindex
 
 \end{document}
