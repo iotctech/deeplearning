@@ -236,7 +236,7 @@ tandard way to model a neuron's output \(f\) as a function of its input \(x\) is
 
 We are not the first to consider alternatives to traditional neuron models in CNNs. For example, Jarrett et al.~{[}11{]} claim that the nonlinearity \(f(x) = |tanh(x)|\) works particularly well with their type of contrast normalization followed by local average pooling on the Caltech-101 dataset. However, on this dataset the primary concern is preventing overfitting, so the effect they are observing is different from the accelerated ability to fit the training set which we report when using ReLUs. Faster learning has a great influence on the performance of large models trained on large datasets.
 
-knitr::include\_graphics(``img/01-01.png'')
+\begin{center}\includegraphics[width=0.7\linewidth]{img/01-01} \end{center}
 
 Figure 1: A four-layer convolutional neural network with ReLUs \textbf{(solid line)} reaches a 25\% training error rate on CIFAR-10 six times faster than an equivalent network with tanh neurons \textbf{(dashed line)}. The learning rates for each network were chosen independently to make training as fast as possible. No regularization of any kind was employed. The magnitude of the effect demonstrated here varies with network architecture, but networks with ReLUs consistently learn several times faster than equivalents with saturating neurons.
 
