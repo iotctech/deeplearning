@@ -79,6 +79,8 @@
 <li class="chapter" data-level="2.4" data-path="Alexnet.html"><a href="Alexnet.html#the-architecture"><i class="fa fa-check"></i><b>2.4</b> The Architecture</a>
 <ul>
 <li class="chapter" data-level="2.4.1" data-path="Alexnet.html"><a href="Alexnet.html#relu-nonlinearity"><i class="fa fa-check"></i><b>2.4.1</b> ReLU Nonlinearity</a></li>
+<li class="chapter" data-level="2.4.2" data-path="Alexnet.html"><a href="Alexnet.html#training-on-multiple-gpus"><i class="fa fa-check"></i><b>2.4.2</b> Training on Multiple GPUs</a></li>
+<li class="chapter" data-level="2.4.3" data-path="Alexnet.html"><a href="Alexnet.html#local-response-normalization"><i class="fa fa-check"></i><b>2.4.3</b> Local Response Normalization</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -130,6 +132,15 @@
 <p>We are not the first to consider alternatives to traditional neuron models in CNNs. For example, Jarrett et al. [11] claim that the nonlinearity <span class="math inline">\(f(x) = |tanh(x)|\)</span> works particularly well with their type of contrast normalization followed by local average pooling on the Caltech-101 dataset. However, on this dataset the primary concern is preventing overfitting, so the effect they are observing is different from the accelerated ability to fit the training set which we report when using ReLUs. Faster learning has a great influence on the performance of large models trained on large datasets.</p>
 <p><img src="img/01-01.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Figure 1: A four-layer convolutional neural network with ReLUs <strong>(solid line)</strong> reaches a 25% training error rate on CIFAR-10 six times faster than an equivalent network with tanh neurons <strong>(dashed line)</strong>. The learning rates for each network were chosen independently to make training as fast as possible. No regularization of any kind was employed. The magnitude of the effect demonstrated here varies with network architecture, but networks with ReLUs consistently learn several times faster than equivalents with saturating neurons.</p>
+</div>
+<div id="training-on-multiple-gpus" class="section level3" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Training on Multiple GPUs</h3>
+<p>A single GTX 580 GPU has only 3GB of memory, which limits the maximum size of the networks that can be trained on it. It turns out that 1.2 million training examples are enough to train networks which are too big to fit on one GPU. Therefore we spread the net across two GPUs. Current GPUs are particularly well-suited to cross-GPU parallelization, as they are able to read from and write to one another’s memory directly, without going through host machine memory. The parallelization scheme that we employ essentially puts half of the kernels (or neurons) on each GPU, with one additional trick: the GPUs communicate only in certain layers. This means that, for example, the kernels of layer 3 take input from all kernel maps in layer 2. However, kernels in layer 4 take input only from those kernel maps in layer 3 which reside on the same GPU. Choosing the pattern of connectivity is a problem for cross-validation, but this allows us to precisely tune the amount of communication until it is an acceptable fraction of the amount of computation.</p>
+<p>The resultant architecture is somewhat similar to that of the “columnar” CNN employed by Cire¸san et al. [5], except that our columns are not independent (see Figure 2). This scheme reduces our top-1 and top-5 error rates by 1.7% and 1.2%, respectively, as compared with a net with half as many kernels in each convolutional layer trained on one GPU. The two-GPU net takes slightly less time to train than the one-GPU net2.</p>
+</div>
+<div id="local-response-normalization" class="section level3" number="2.4.3">
+<h3><span class="header-section-number">2.4.3</span> Local Response Normalization</h3>
+<p>ReLUs have the desirable property that they do not require input normalization to prevent them from saturating. If at least some training examples produce a positive input to a ReLU, learning will happen in that neuron. However, we still find that the following local normalization scheme aids generalization. Denoting by <span class="math inline">\(a^i_{x,y}\)</span> the activity of a neuron computed by applying kernel i at position <span class="math inline">\((x, y)\)</span> and then applying the ReLU nonlinearity, the response-normalized activity <span class="math inline">\(b^i_{x,y}\)</span> is given by the expression</p>
 
 </div>
 </div>

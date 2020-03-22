@@ -240,6 +240,18 @@ We are not the first to consider alternatives to traditional neuron models in CN
 
 Figure 1: A four-layer convolutional neural network with ReLUs \textbf{(solid line)} reaches a 25\% training error rate on CIFAR-10 six times faster than an equivalent network with tanh neurons \textbf{(dashed line)}. The learning rates for each network were chosen independently to make training as fast as possible. No regularization of any kind was employed. The magnitude of the effect demonstrated here varies with network architecture, but networks with ReLUs consistently learn several times faster than equivalents with saturating neurons.
 
+\hypertarget{training-on-multiple-gpus}{%
+\subsection{Training on Multiple GPUs}\label{training-on-multiple-gpus}}
+
+A single GTX 580 GPU has only 3GB of memory, which limits the maximum size of the networks that can be trained on it. It turns out that 1.2 million training examples are enough to train networks which are too big to fit on one GPU. Therefore we spread the net across two GPUs. Current GPUs are particularly well-suited to cross-GPU parallelization, as they are able to read from and write to one another's memory directly, without going through host machine memory. The parallelization scheme that we employ essentially puts half of the kernels (or neurons) on each GPU, with one additional trick: the GPUs communicate only in certain layers. This means that, for example, the kernels of layer 3 take input from all kernel maps in layer 2. However, kernels in layer 4 take input only from those kernel maps in layer 3 which reside on the same GPU. Choosing the pattern of connectivity is a problem for cross-validation, but this allows us to precisely tune the amount of communication until it is an acceptable fraction of the amount of computation.
+
+The resultant architecture is somewhat similar to that of the ``columnar'' CNN employed by Cire¸san et al.~{[}5{]}, except that our columns are not independent (see Figure 2). This scheme reduces our top-1 and top-5 error rates by 1.7\% and 1.2\%, respectively, as compared with a net with half as many kernels in each convolutional layer trained on one GPU. The two-GPU net takes slightly less time to train than the one-GPU net2.
+
+\hypertarget{local-response-normalization}{%
+\subsection{Local Response Normalization}\label{local-response-normalization}}
+
+ReLUs have the desirable property that they do not require input normalization to prevent them from saturating. If at least some training examples produce a positive input to a ReLU, learning will happen in that neuron. However, we still find that the following local normalization scheme aids generalization. Denoting by \(a^i_{x,y}\) the activity of a neuron computed by applying kernel i at position \((x, y)\) and then applying the ReLU nonlinearity, the response-normalized activity \(b^i_{x,y}\) is given by the expression
+
 
 \backmatter
 % \printindex
