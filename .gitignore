@@ -6,3 +6,6 @@ _book
 _bookdown_files
 rsconnect
 book-output
+tmp
+output
+git-pages

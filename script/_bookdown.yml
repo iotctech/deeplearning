@@ -1,0 +1,5 @@
+book_filename: "Deep-Learning-Book"
+language:
+  ui:
+    chapter_name: "章节 "
+delete_merged_file: true
