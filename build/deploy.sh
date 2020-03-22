@@ -16,6 +16,7 @@ fi
 git clone -b gh-pages git@github.com:iotctech/deeplearning.git git-pages
 cd git-pages
 cp -r ../output/* ./
+rm -rf *.md
 git add --all *
 git commit -m"Update the book" || true
 git push -q origin gh-pages
