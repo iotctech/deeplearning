@@ -2,16 +2,24 @@ bookdown::gitbook:
   css: style.css
   config:
     toc:
+      collapse: section
       before: |
         <li><a href="./">Deep Learning Literature</a></li>
       after: |
-        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-    edit: https://github.com/iotctech/deeplearning/edit/master/%s
-    download: ["pdf", "epub"]
+        <li><a href="https://github.com/rstudio/bookdown" target="blank">本论文由 bookdown 强力驱动</a></li>
+    download: ["pdf","epub"]
 bookdown::pdf_book:
   includes:
-    in_header: preamble.tex
+    in_header: latex/preamble.tex
+    before_body: latex/before_body.tex
+    after_body: latex/after_body.tex
   latex_engine: xelatex
   citation_package: natbib
   keep_tex: yes
-bookdown::epub_book: default
+  pandoc_args: ["--top-level-division=chapter", "--lua-filter=latex/sidebar.lua"]
+  template: latex/default.latex
+  toc_depth: 3
+  toc_unnumbered: yes
+  toc_appendix: no
+  toc_bib: yes
+  highlight: NULL

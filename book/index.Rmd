@@ -1,14 +1,30 @@
---- 
+---
 title: "深度学习文档集"
+subtitle: "Deep Learning Book"
 author: "贝塔"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
-bibliography: [book.bib, packages.bib]
-biblio-style: apalike
+mainfont: Times New Roman
+sansfont: Arial
+monofont: Inconsolata
+geometry: margin=1.18in
+bibliography: ["latex/book.bib", "latex/refer.bib"]
 link-citations: yes
-github-repo: iotctech/deeplearning
+graphics: yes
+tables: yes
+mathspec: yes
+papersize: "a4"
+fontsize: "12pt"
+fontenc: T1
+linestretch: 1.25
+classoption: "UTF8,twoside"
+natbiboptions: super,square,sort
+biblio-style: "GBT7714-2005"
+indent: 40pt
+pdfproducer: "Pandoc, R Markdown, TinyTeX, knitr, bookdown, Stan"
+github-repo: "iotctech/deeplearning"
 description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
 ---
 
@@ -17,6 +33,8 @@ description: "This is a minimal example of using the bookdown package to write a
 _Life, thin and light-off time and time again_
 
 _Frivolous tireless_
+
+
 
 生命，一次又一次轻薄过
 
