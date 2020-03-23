@@ -40,3 +40,7 @@ cd build
 ./deploy.sh
 # 执行成功后，会在远程git仓库生成git-pages分支，并且可以通过 https://<username>.github.io/<projectname>/ 链接访问gitpage
 ```
+
+## 注意
+新框架使用LaTex模版，旧pandoc版本编译会报错，另外需要字体库支持，如果编译不过，需要安装相应字体库或R Packet，或者去LaTex模版修改字体库为自己电脑上已安装的字体
+
