@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>第 3 章 经典深度学习网络模型 | 深度学习文档集</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="第 3 章 经典深度学习网络模型 | 深度学习文档集" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="iotctech/deeplearning" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="第 3 章 经典深度学习网络模型 | 深度学习文档集" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="贝塔" />
+
+
+<meta name="date" content="2020-03-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="Alexnet.html"/>
+
+<script src="libs/header-attrs-2.1/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Deep Learning Literature</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 写在前面</a></li>
+<li class="chapter" data-level="2" data-path="Alexnet.html"><a href="Alexnet.html"><i class="fa fa-check"></i><b>2</b> ImageNet Classification with Deep Convolutional Neural Networks</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="Alexnet.html"><a href="Alexnet.html#abstract"><i class="fa fa-check"></i><b>2.1</b> Abstract</a></li>
+<li class="chapter" data-level="2.2" data-path="Alexnet.html"><a href="Alexnet.html#introduction"><i class="fa fa-check"></i><b>2.2</b> Introduction</a></li>
+<li class="chapter" data-level="2.3" data-path="Alexnet.html"><a href="Alexnet.html#the-dataset"><i class="fa fa-check"></i><b>2.3</b> The Dataset</a></li>
+<li class="chapter" data-level="2.4" data-path="Alexnet.html"><a href="Alexnet.html#the-architecture"><i class="fa fa-check"></i><b>2.4</b> The Architecture</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="Alexnet.html"><a href="Alexnet.html#relu-nonlinearity"><i class="fa fa-check"></i><b>2.4.1</b> ReLU Nonlinearity</a></li>
+<li class="chapter" data-level="2.4.2" data-path="Alexnet.html"><a href="Alexnet.html#training-on-multiple-gpus"><i class="fa fa-check"></i><b>2.4.2</b> Training on Multiple GPUs</a></li>
+<li class="chapter" data-level="2.4.3" data-path="Alexnet.html"><a href="Alexnet.html#local-response-normalization"><i class="fa fa-check"></i><b>2.4.3</b> Local Response Normalization</a></li>
+<li class="chapter" data-level="2.4.4" data-path="Alexnet.html"><a href="Alexnet.html#overlapping-pooling"><i class="fa fa-check"></i><b>2.4.4</b> Overlapping Pooling</a></li>
+<li class="chapter" data-level="2.4.5" data-path="Alexnet.html"><a href="Alexnet.html#overall-architecture"><i class="fa fa-check"></i><b>2.4.5</b> Overall Architecture</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="Alexnet.html"><a href="Alexnet.html#reducing-overfitting"><i class="fa fa-check"></i><b>2.5</b> Reducing Overfitting</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="Alexnet.html"><a href="Alexnet.html#data-augmentation"><i class="fa fa-check"></i><b>2.5.1</b> Data Augmentation</a></li>
+<li class="chapter" data-level="2.5.2" data-path="Alexnet.html"><a href="Alexnet.html#dropout"><i class="fa fa-check"></i><b>2.5.2</b> Dropout</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="Alexnet.html"><a href="Alexnet.html#details-of-learning"><i class="fa fa-check"></i><b>2.6</b> Details of learning</a></li>
+<li class="chapter" data-level="2.7" data-path="Alexnet.html"><a href="Alexnet.html#results"><i class="fa fa-check"></i><b>2.7</b> Results</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="Alexnet.html"><a href="Alexnet.html#qualitative-evaluations"><i class="fa fa-check"></i><b>2.7.1</b> Qualitative Evaluations</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="Alexnet.html"><a href="Alexnet.html#discussion"><i class="fa fa-check"></i><b>2.8</b> Discussion</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html"><i class="fa fa-check"></i><b>3</b> 经典深度学习网络模型</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#lenet-5"><i class="fa fa-check"></i><b>3.1</b> LeNet-5</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#模型介绍"><i class="fa fa-check"></i><b>3.1.1</b> 模型介绍</a></li>
+<li class="chapter" data-level="3.1.2" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#模型结构"><i class="fa fa-check"></i><b>3.1.2</b> 模型结构</a></li>
+<li class="chapter" data-level="3.1.3" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#模型特性"><i class="fa fa-check"></i><b>3.1.3</b> 模型特性</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#alexnet"><i class="fa fa-check"></i><b>3.2</b> AlexNet</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#模型介绍-1"><i class="fa fa-check"></i><b>3.2.1</b> 模型介绍</a></li>
+<li class="chapter" data-level="3.2.2" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#模型结构-1"><i class="fa fa-check"></i><b>3.2.2</b> 模型结构</a></li>
+<li class="chapter" data-level="3.2.3" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#模型特性-1"><i class="fa fa-check"></i><b>3.2.3</b> 模型特性</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#zfnet"><i class="fa fa-check"></i><b>3.3</b> ZFNet</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#模型介绍-2"><i class="fa fa-check"></i><b>3.3.1</b> 模型介绍</a></li>
+<li class="chapter" data-level="3.3.2" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#模型结构-2"><i class="fa fa-check"></i><b>3.3.2</b> 模型结构</a></li>
+<li class="chapter" data-level="3.3.3" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#模型特性-2"><i class="fa fa-check"></i><b>3.3.3</b> 模型特性</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#network-in-network"><i class="fa fa-check"></i><b>3.4</b> Network in Network</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#模型介绍-3"><i class="fa fa-check"></i><b>3.4.1</b> 模型介绍</a></li>
+<li class="chapter" data-level="3.4.2" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#模型结构-3"><i class="fa fa-check"></i><b>3.4.2</b> 模型结构</a></li>
+<li class="chapter" data-level="3.4.3" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#模型特点"><i class="fa fa-check"></i><b>3.4.3</b> 模型特点</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#vggnet"><i class="fa fa-check"></i><b>3.5</b> VGGNet</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#模型介绍-4"><i class="fa fa-check"></i><b>3.5.1</b> 模型介绍</a></li>
+<li class="chapter" data-level="3.5.2" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#模型结构-4"><i class="fa fa-check"></i><b>3.5.2</b> 模型结构</a></li>
+<li class="chapter" data-level="3.5.3" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#模型特性-3"><i class="fa fa-check"></i><b>3.5.3</b> 模型特性</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#googlenet"><i class="fa fa-check"></i><b>3.6</b> GoogLeNet</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#模型介绍-5"><i class="fa fa-check"></i><b>3.6.1</b> 模型介绍</a></li>
+<li class="chapter" data-level="3.6.2" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#模型结构-5"><i class="fa fa-check"></i><b>3.6.2</b> 4.6.2 模型结构</a></li>
+<li class="chapter" data-level="3.6.3" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#模型特性-4"><i class="fa fa-check"></i><b>3.6.3</b> 模型特性</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="经典深度学习网络模型.html"><a href="经典深度学习网络模型.html#为什么现在的cnn模型都是在googlenetvggnet或者alexnet上调整的"><i class="fa fa-check"></i><b>3.7</b> 为什么现在的CNN模型都是在GoogleNet、VGGNet或者AlexNet上调整的？</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">本论文由 bookdown 强力驱动</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">深度学习文档集</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="经典深度学习网络模型" class="section level1" number="3">
+<h1><span class="header-section-number">第 3 章</span> 经典深度学习网络模型</h1>
+<div id="lenet-5" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> LeNet-5</h2>
+<div id="模型介绍" class="section level3" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> 模型介绍</h3>
+<p>LeNet-5是由<span class="math inline">\(LeCun\)</span> 提出的一种用于识别手写数字和机器印刷字符的卷积神经网络（Convolutional Neural Network，CNN）<span class="math inline">\(^{[1]}\)</span>，其命名来源于作者<span class="math inline">\(LeCun\)</span>的名字，5则是其研究成果的代号，在LeNet-5之前还有LeNet-4和LeNet-1鲜为人知。LeNet-5阐述了图像中像素特征之间的相关性能够由参数共享的卷积操作所提取，同时使用卷积、下采样（池化）和非线性映射这样的组合结构，是当前流行的大多数深度图像识别网络的基础。</p>
+</div>
+<div id="模型结构" class="section level3" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> 模型结构</h3>
+<p><img src="img/02-01.jpg" width="70%" style="display: block; margin: auto;" /></p>
+<p>LeNet-5一共包含7层（输入层不作为网络结构），分别由2个卷积层、2个下采样层和3个连接层组成，网络的参数配置如表4.1所示，其中下采样层和全连接层的核尺寸分别代表采样范围和连接矩阵的尺寸（如卷积核尺寸中的<span class="math inline">\(“5\times5\times1/1,6”\)</span>表示核大小为<span class="math inline">\(5\times5\times1\)</span>、步长为<span class="math inline">\(1\)</span>且核个数为6的卷积核）。</p>
+<p>LeNet-5网络参数配置:</p>
+<table>
+<colgroup>
+<col width="13%" />
+<col width="18%" />
+<col width="21%" />
+<col width="18%" />
+<col width="28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">网络层</th>
+<th align="center">输入尺寸</th>
+<th align="center">核尺寸</th>
+<th align="center">输出尺寸</th>
+<th align="center">可训练参数量</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">卷积层<span class="math inline">\(C_1\)</span></td>
+<td align="center"><span class="math inline">\(32\times32\times1\)</span></td>
+<td align="center"><span class="math inline">\(5\times5\times1/1,6\)</span></td>
+<td align="center"><span class="math inline">\(28\times28\times6\)</span></td>
+<td align="center"><span class="math inline">\((5\times5\times1+1)\times6\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">下采样层<span class="math inline">\(S_2\)</span></td>
+<td align="center"><span class="math inline">\(28\times28\times6\)</span></td>
+<td align="center"><span class="math inline">\(2\times2/2\)</span></td>
+<td align="center"><span class="math inline">\(14\times14\times6\)</span></td>
+<td align="center"><span class="math inline">\((1+1)\times6\)</span> <span class="math inline">\(^*\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">卷积层<span class="math inline">\(C_3\)</span></td>
+<td align="center"><span class="math inline">\(14\times14\times6\)</span></td>
+<td align="center"><span class="math inline">\(5\times5\times6/1,16\)</span></td>
+<td align="center"><span class="math inline">\(10\times10\times16\)</span></td>
+<td align="center"><span class="math inline">\(1516^*\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">下采样层<span class="math inline">\(S_4\)</span></td>
+<td align="center"><span class="math inline">\(10\times10\times16\)</span></td>
+<td align="center"><span class="math inline">\(2\times2/2\)</span></td>
+<td align="center"><span class="math inline">\(5\times5\times16\)</span></td>
+<td align="center"><span class="math inline">\((1+1)\times16\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">卷积层<span class="math inline">\(C_5\)</span><span class="math inline">\(^*\)</span></td>
+<td align="center"><span class="math inline">\(5\times5\times16\)</span></td>
+<td align="center"><span class="math inline">\(5\times5\times16/1,120\)</span></td>
+<td align="center"><span class="math inline">\(1\times1\times120\)</span></td>
+<td align="center"><span class="math inline">\((5\times5\times16+1)\times120\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">全连接层<span class="math inline">\(F_6\)</span></td>
+<td align="center"><span class="math inline">\(1\times1\times120\)</span></td>
+<td align="center"><span class="math inline">\(120\times84\)</span></td>
+<td align="center"><span class="math inline">\(1\times1\times84\)</span></td>
+<td align="center"><span class="math inline">\((120+1)\times84\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">输出层</td>
+<td align="center"><span class="math inline">\(1\times1\times84\)</span></td>
+<td align="center"><span class="math inline">\(84\times10\)</span></td>
+<td align="center"><span class="math inline">\(1\times1\times10\)</span></td>
+<td align="center"><span class="math inline">\((84+1)\times10\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(^*\)</span> 在LeNet中，下采样操作和池化操作类似，但是在得到采样结果后会乘以一个系数和加上一个偏置项，所以下采样的参数个数是<span class="math inline">\((1+1)\times6\)</span>而不是零。</p>
+<p><span class="math inline">\(^*\)</span> <span class="math inline">\(C_3\)</span>卷积层可训练参数并未直接连接<span class="math inline">\(S_2\)</span>中所有的特征图（Feature Map），而是采用如图4.2所示的采样特征方式进行连接（稀疏连接），生成的16个通道特征图中分别按照相邻3个特征图、相邻4个特征图、非相邻4个特征图和全部6个特征图进行映射，得到的参数个数计算公式为<span class="math inline">\(6\times(25\times3+1)+6\times(25\times4+1)+3\times(25\times4+1)+1\times(25\times6+1)=1516\)</span>，在原论文中解释了使用这种采样方式原因包含两点：限制了连接数不至于过大（当年的计算能力比较弱）;强制限定不同特征图的组合可以使映射得到的特征图学习到不同的特征模式。</p>
+<p><span class="math inline">\(S_2\)</span>与<span class="math inline">\(C_3\)</span>之间的特征图稀疏连接
+<img src="img/02-02.jpg" width="70%" style="display: block; margin: auto;" /></p>
+<p><span class="math inline">\(^*\)</span> <span class="math inline">\(C_5\)</span>卷积层显示为全连接层，原论文中解释这里实际采用的是卷积操作，只是刚好在<span class="math inline">\(5\times5\)</span>卷积后尺寸被压缩为<span class="math inline">\(1\times1\)</span>，输出结果看起来和全连接很相似。</p>
+</div>
+<div id="模型特性" class="section level3" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> 模型特性</h3>
+<ul>
+<li>卷积网络使用一个3层的序列组合：卷积、下采样（池化）、非线性映射（LeNet-5最重要的特性，奠定了目前深层卷积网络的基础）</li>
+<li>使用卷积提取空间特征</li>
+<li>使用映射的空间均值进行下采样</li>
+<li>使用<span class="math inline">\(tanh\)</span>或<span class="math inline">\(sigmoid\)</span>进行非线性映射</li>
+<li>多层神经网络（MLP）作为最终的分类器</li>
+<li>层间的稀疏连接矩阵以避免巨大的计算开销</li>
+</ul>
+</div>
+</div>
+<div id="alexnet" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> AlexNet</h2>
+<div id="模型介绍-1" class="section level3" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> 模型介绍</h3>
+<p>AlexNet是由<span class="math inline">\(Alex\)</span> $Krizhevsky <span class="math inline">\(提出的首个应用于图像分类的深层卷积神经网络，该网络在2012年ILSVRC（ImageNet Large Scale Visual Recognition Competition）图像分类竞赛中以15.3%的top-5测试错误率赢得第一名\)</span>^{[2]}$。AlexNet使用GPU代替CPU进行运算，使得在可接受的时间范围内模型结构能够更加复杂，它的出现证明了深层卷积神经网络在复杂模型下的有效性，使CNN在计算机视觉中流行开来，直接或间接地引发了深度学习的热潮。</p>
+</div>
+<div id="模型结构-1" class="section level3" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> 模型结构</h3>
+<p><img src="img/02-03.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>除去下采样（池化层）和局部响应规范化操作（Local Responsible Normalization, LRN），AlexNet一共包含8层，前5层由卷积层组成，而剩下的3层为全连接层。网络结构分为上下两层，分别对应两个GPU的操作过程，除了中间某些层（<span class="math inline">\(C_3\)</span>卷积层和<span class="math inline">\(F_{6-8}\)</span>全连接层会有GPU间的交互），其他层两个GPU分别计算结 果。最后一层全连接层的输出作为<span class="math inline">\(softmax\)</span>的输入，得到1000个图像分类标签对应的概率值。除去GPU并行结构的设计，AlexNet网络结构与LeNet十分相似，其网络的参数配置如表所示。</p>
+<table>
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">网络层</th>
+<th align="center">输入尺寸</th>
+<th align="center">核尺寸</th>
+<th align="center">输出尺寸</th>
+<th align="center">可训练参数量</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">卷积层<span class="math inline">\(C_1\)</span> <span class="math inline">\(^*\)</span></td>
+<td align="center"><span class="math inline">\(224\times224\times3\)</span></td>
+<td align="center"><span class="math inline">\(11\times11\times3/4,48(\times2_{GPU})\)</span></td>
+<td align="center"><span class="math inline">\(55\times55\times48(\times2_{GPU})\)</span></td>
+<td align="center"><span class="math inline">\((11\times11\times3+1)\times48\times2\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">下采样层<span class="math inline">\(S_{max}\)</span><span class="math inline">\(^*\)</span></td>
+<td align="center"><span class="math inline">\(55\times55\times48(\times2_{GPU})\)</span></td>
+<td align="center"><span class="math inline">\(3\times3/2(\times2_{GPU})\)</span></td>
+<td align="center"><span class="math inline">\(27\times27\times48(\times2_{GPU})\)</span></td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">卷积层<span class="math inline">\(C_2\)</span></td>
+<td align="center"><span class="math inline">\(27\times27\times48(\times2_{GPU})\)</span></td>
+<td align="center"><span class="math inline">\(5\times5\times48/1,128(\times2_{GPU})\)</span></td>
+<td align="center"><span class="math inline">\(27\times27\times128(\times2_{GPU})\)</span></td>
+<td align="center"><span class="math inline">\((5\times5\times48+1)\times128\times2\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">下采样层<span class="math inline">\(S_{max}\)</span></td>
+<td align="center"><span class="math inline">\(27\times27\times128(\times2_{GPU})\)</span></td>
+<td align="center"><span class="math inline">\(3\times3/2(\times2_{GPU})\)</span></td>
+<td align="center"><span class="math inline">\(13\times13\times128(\times2_{GPU})\)</span></td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">卷积层<span class="math inline">\(C_3\)</span> <span class="math inline">\(^*\)</span></td>
+<td align="center"><span class="math inline">\(13\times13\times128\times2_{GPU}\)</span></td>
+<td align="center"><span class="math inline">\(3\times3\times256/1,192(\times2_{GPU})\)</span></td>
+<td align="center"><span class="math inline">\(13\times13\times192(\times2_{GPU})\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times256+1)\times192\times2\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">卷积层<span class="math inline">\(C_4\)</span></td>
+<td align="center"><span class="math inline">\(13\times13\times192(\times2_{GPU})\)</span></td>
+<td align="center"><span class="math inline">\(3\times3\times192/1,192(\times2_{GPU})\)</span></td>
+<td align="center"><span class="math inline">\(13\times13\times192(\times2_{GPU})\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times192+1)\times192\times2\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">卷积层<span class="math inline">\(C_5\)</span></td>
+<td align="center"><span class="math inline">\(13\times13\times192(\times2_{GPU})\)</span></td>
+<td align="center"><span class="math inline">\(3\times3\times192/1,128(\times2_{GPU})\)</span></td>
+<td align="center"><span class="math inline">\(13\times13\times128(\times2_{GPU})\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times192+1)\times128\times2\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">下采样层<span class="math inline">\(S_{max}\)</span></td>
+<td align="center"><span class="math inline">\(13\times13\times128(\times2_{GPU})\)</span></td>
+<td align="center"><span class="math inline">\(3\times3/2(\times2_{GPU})\)</span></td>
+<td align="center"><span class="math inline">\(6\times6\times128(\times2_{GPU})\)</span></td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">全连接层<span class="math inline">\(F_6\)</span> <span class="math inline">\(^*\)</span></td>
+<td align="center"><span class="math inline">\(6\times6\times128\times2_{GPU}\)</span></td>
+<td align="center"><span class="math inline">\(9216\times2048(\times2_{GPU})\)</span></td>
+<td align="center"><span class="math inline">\(1\times1\times2048(\times2_{GPU})\)</span></td>
+<td align="center"><span class="math inline">\((9216+1)\times2048\times2\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">全连接层<span class="math inline">\(F_7\)</span></td>
+<td align="center"><span class="math inline">\(1\times1\times2048\times2_{GPU}\)</span></td>
+<td align="center"><span class="math inline">\(4096\times2048(\times2_{GPU})\)</span></td>
+<td align="center"><span class="math inline">\(1\times1\times2048(\times2_{GPU})\)</span></td>
+<td align="center"><span class="math inline">\((4096+1)\times2048\times2\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">全连接层<span class="math inline">\(F_8\)</span></td>
+<td align="center"><span class="math inline">\(1\times1\times2048\times2_{GPU}\)</span></td>
+<td align="center"><span class="math inline">\(4096\times1000\)</span></td>
+<td align="center"><span class="math inline">\(1\times1\times1000\)</span></td>
+<td align="center"><span class="math inline">\((4096+1)\times1000\times2\)</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>卷积层<span class="math inline">\(C_1\)</span>输入为<span class="math inline">\(224\times224\times3\)</span>的图片数据，分别在两个GPU中经过核为<span class="math inline">\(11\times11\times3\)</span>、步长（stride）为4的卷积卷积后，分别得到两条独立的<span class="math inline">\(55\times55\times48\)</span>的输出数据。</p></li>
+<li><p>下采样层<span class="math inline">\(S_{max}\)</span>实际上是嵌套在卷积中的最大池化操作，但是为了区分没有采用最大池化的卷积层单独列出来。在<span class="math inline">\(C_{1-2}\)</span>卷积层中的池化操作之后（ReLU激活操作之前），还有一个LRN操作，用作对相邻特征点的归一化处理。</p></li>
+<li><p>卷积层<span class="math inline">\(C_3\)</span> 的输入与其他卷积层不同，<span class="math inline">\(13\times13\times192\times2_{GPU}\)</span>表示汇聚了上一层网络在两个GPU上的输出结果作为输入，所以在进行卷积操作时通道上的卷积核维度为384。</p></li>
+<li><p>全连接层<span class="math inline">\(F_{6-8}\)</span>中输入数据尺寸也和<span class="math inline">\(C_3\)</span>类似，都是融合了两个GPU流向的输出结果作为输入。</p></li>
+</ul>
+</div>
+<div id="模型特性-1" class="section level3" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> 模型特性</h3>
+<ul>
+<li>所有卷积层都使用ReLU作为非线性映射函数，使模型收敛速度更快</li>
+<li>在多个GPU上进行模型的训练，不但可以提高模型的训练速度，还能提升数据的使用规模</li>
+<li>使用LRN对局部的特征进行归一化，结果作为ReLU激活函数的输入能有效降低错误率</li>
+<li>重叠最大池化（overlapping max pooling），即池化范围z与步长s存在关系<span class="math inline">\(z&gt;s\)</span>（如<span class="math inline">\(S_{max}\)</span>中核尺度为<span class="math inline">\(3\times3/2\)</span>），避免平均池化（average pooling）的平均效应</li>
+<li>使用随机丢弃技术（dropout）选择性地忽略训练中的单个神经元，避免模型的过拟合</li>
+</ul>
+</div>
+</div>
+<div id="zfnet" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> ZFNet</h2>
+<div id="模型介绍-2" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> 模型介绍</h3>
+<p>​ZFNet是由<span class="math inline">\(Matthew\)</span> <span class="math inline">\(D. Zeiler\)</span>和<span class="math inline">\(Rob\)</span> <span class="math inline">\(Fergus\)</span>在AlexNet基础上提出的大型卷积网络，在2013年ILSVRC图像分类竞赛中以11.19%的错误率获得冠军（实际上原ZFNet所在的队伍并不是真正的冠军，原ZFNet以13.51%错误率排在第8，真正的冠军是<span class="math inline">\(Clarifai\)</span>这个队伍，而<span class="math inline">\(Clarifai\)</span>这个队伍所对应的一家初创公司的CEO又是<span class="math inline">\(Zeiler\)</span>，而且<span class="math inline">\(Clarifai\)</span>对ZFNet的改动比较小，所以通常认为是ZFNet获得了冠军）<span class="math inline">\(^{[3-4]}\)</span>。ZFNet实际上是微调（fine-tuning）了的AlexNet，并通过反卷积（Deconvolution）的方式可视化各层的输出特征图，进一步解释了卷积操作在大型网络中效果显著的原因。</p>
+</div>
+<div id="模型结构-2" class="section level3" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> 模型结构</h3>
+<p><img src="img/02-04.jpeg" width="70%" style="display: block; margin: auto;" /></p>
+<p>​如图所示，ZFNet与AlexNet类似，都是由8层网络组成的卷积神经网络，其中包含5层卷积层和3层全连接层。两个网络结构最大的不同在于，ZFNet第一层卷积采用了<span class="math inline">\(7\times7\times3/2\)</span>的卷积核替代了AlexNet中第一层卷积核<span class="math inline">\(11\times11\times3/4\)</span>的卷积核。ZFNet相比于AlexNet在第一层输出的特征图中包含更多中间频率的信息，而AlexNet第一层输出的特征图大多是低频或高频的信息，对中间频率特征的缺失导致后续网络层次能够学习到的特征不够细致，而导致这个问题的根本原因在于AlexNet在第一层中采用的卷积核和步长过大。</p>
+<p><img src="img/02-05.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="img/02-06.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>（a）ZFNet第一层输出的特征图（b）AlexNet第一层输出的特征图（c）AlexNet第二层输出的特征图（d）ZFNet第二层输出的特征图</p>
+<table>
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">网络层</th>
+<th align="center">输入尺寸</th>
+<th align="center">核尺寸</th>
+<th align="center">输出尺寸</th>
+<th align="center">可训练参数量</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">卷积层<span class="math inline">\(C_1\)</span> <span class="math inline">\(^*\)</span></td>
+<td align="center"><span class="math inline">\(224\times224\times3\)</span></td>
+<td align="center"><span class="math inline">\(7\times7\times3/2,96\)</span></td>
+<td align="center"><span class="math inline">\(110\times110\times96\)</span></td>
+<td align="center"><span class="math inline">\((7\times7\times3+1)\times96\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">下采样层<span class="math inline">\(S_{max}\)</span></td>
+<td align="center"><span class="math inline">\(110\times110\times96\)</span></td>
+<td align="center"><span class="math inline">\(3\times3/2\)</span></td>
+<td align="center"><span class="math inline">\(55\times55\times96\)</span></td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">卷积层<span class="math inline">\(C_2\)</span> <span class="math inline">\(^*\)</span></td>
+<td align="center"><span class="math inline">\(55\times55\times96\)</span></td>
+<td align="center"><span class="math inline">\(5\times5\times96/2,256\)</span></td>
+<td align="center"><span class="math inline">\(26\times26\times256\)</span></td>
+<td align="center"><span class="math inline">\((5\times5\times96+1)\times256\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">下采样层<span class="math inline">\(S_{max}\)</span></td>
+<td align="center"><span class="math inline">\(26\times26\times256\)</span></td>
+<td align="center"><span class="math inline">\(3\times3/2\)</span></td>
+<td align="center"><span class="math inline">\(13\times13\times256\)</span></td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">卷积层<span class="math inline">\(C_3\)</span></td>
+<td align="center"><span class="math inline">\(13\times13\times256\)</span></td>
+<td align="center"><span class="math inline">\(3\times3\times256/1,384\)</span></td>
+<td align="center"><span class="math inline">\(13\times13\times384\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times256+1)\times384\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">卷积层<span class="math inline">\(C_4\)</span></td>
+<td align="center"><span class="math inline">\(13\times13\times384\)</span></td>
+<td align="center"><span class="math inline">\(3\times3\times384/1,384\)</span></td>
+<td align="center"><span class="math inline">\(13\times13\times384\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times384+1)\times384\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">卷积层<span class="math inline">\(C_5\)</span></td>
+<td align="center"><span class="math inline">\(13\times13\times384\)</span></td>
+<td align="center"><span class="math inline">\(3\times3\times384/1,256\)</span></td>
+<td align="center"><span class="math inline">\(13\times13\times256\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times384+1)\times256\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">下采样层<span class="math inline">\(S_{max}\)</span></td>
+<td align="center"><span class="math inline">\(13\times13\times256\)</span></td>
+<td align="center"><span class="math inline">\(3\times3/2\)</span></td>
+<td align="center"><span class="math inline">\(6\times6\times256\)</span></td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">全连接层<span class="math inline">\(F_6\)</span></td>
+<td align="center"><span class="math inline">\(6\times6\times256\)</span></td>
+<td align="center"><span class="math inline">\(9216\times4096\)</span></td>
+<td align="center"><span class="math inline">\(1\times1\times4096\)</span></td>
+<td align="center"><span class="math inline">\((9216+1)\times4096\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">全连接层<span class="math inline">\(F_7\)</span></td>
+<td align="center"><span class="math inline">\(1\times1\times4096\)</span></td>
+<td align="center"><span class="math inline">\(4096\times4096\)</span></td>
+<td align="center"><span class="math inline">\(1\times1\times4096\)</span></td>
+<td align="center"><span class="math inline">\((4096+1)\times4096\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">全连接层<span class="math inline">\(F_8\)</span></td>
+<td align="center"><span class="math inline">\(1\times1\times4096\)</span></td>
+<td align="center"><span class="math inline">\(4096\times1000\)</span></td>
+<td align="center"><span class="math inline">\(1\times1\times1000\)</span></td>
+<td align="center"><span class="math inline">\((4096+1)\times1000\)</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>卷积层<span class="math inline">\(C_1\)</span>与AlexNet中的<span class="math inline">\(C_1\)</span>有所不同，采用<span class="math inline">\(7\times7\times3/2\)</span>的卷积核代替<span class="math inline">\(11\times11\times3/4​\)</span>，使第一层卷积输出的结果可以包含更多的中频率特征，对后续网络层中多样化的特征组合提供更多选择，有利于捕捉更细致的特征。</p></li>
+<li><p>卷积层<span class="math inline">\(C_2\)</span>采用了步长2的卷积核，区别于AlexNet中<span class="math inline">\(C_2\)</span>的卷积核步长，所以输出的维度有所差异。</p></li>
+</ul>
+</div>
+<div id="模型特性-2" class="section level3" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> 模型特性</h3>
+<p>​ZFNet与AlexNet在结构上几乎相同，此部分虽属于模型特性，但准确地说应该是ZFNet原论文中可视化技术的贡献。</p>
+<ul>
+<li>可视化技术揭露了激发模型中每层单独的特征图。</li>
+<li>可视化技术允许观察在训练阶段特征的演变过程且诊断出模型的潜在问题。</li>
+<li>可视化技术用到了多层解卷积网络，即由特征激活返回到输入像素空间。</li>
+<li>可视化技术进行了分类器输出的敏感性分析，即通过阻止部分输入图像来揭示那部分对于分类是重要的。</li>
+<li>可视化技术提供了一个非参数的不变性来展示来自训练集的哪一块激活哪个特征图，不仅需要裁剪输入图片，而且自上而下的投影来揭露来自每块的结构激活一个特征图。</li>
+<li>可视化技术依赖于解卷积操作，即卷积操作的逆过程，将特征映射到像素上。</li>
+</ul>
+</div>
+</div>
+<div id="network-in-network" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Network in Network</h2>
+<div id="模型介绍-3" class="section level3" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> 模型介绍</h3>
+<p>Network In Network (NIN)是由<span class="math inline">\(Min Lin\)</span>等人提出，在CIFAR-10和CIFAR-100分类任务中达到当时的最好水平，因其网络结构是由三个多层感知机堆叠而被成为NIN<span class="math inline">\(^{[5]}\)</span>。NIN以一种全新的角度审视了卷积神经网络中的卷积核设计，通过引入子网络结构代替纯卷积中的线性映射部分，这种形式的网络结构激发了更复杂的卷积神经网络的结构设计，其中下一节中介绍的GoogLeNet的Inception结构就是来源于这个思想。</p>
+</div>
+<div id="模型结构-3" class="section level3" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> 模型结构</h3>
+<p><img src="img/02-07.jpeg" width="70%" style="display: block; margin: auto;" /></p>
+<p>​NIN由三层的多层感知卷积层（MLPConv Layer）构成，每一层多层感知卷积层内部由若干层的局部全连接层和非线性激活函数组成，代替了传统卷积层中采用的线性卷积核。在网络推理（inference）时，这个多层感知器会对输入特征图的局部特征进行划窗计算，并且每个划窗的局部特征图对应的乘积的权重是共享的，这两点是和传统卷积操作完全一致的，最大的不同在于多层感知器对局部特征进行了非线性的映射，而传统卷积的方式是线性的。NIN的网络参数配置表4.4所示（原论文并未给出网络参数，表中参数为编者结合网络结构图和CIFAR-100数据集以<span class="math inline">\(3\times3\)</span>卷积为例给出）。</p>
+<table>
+<colgroup>
+<col width="18%" />
+<col width="20%" />
+<col width="18%" />
+<col width="22%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">网络层</th>
+<th align="center">输入尺寸</th>
+<th align="center">核尺寸</th>
+<th align="center">输出尺寸</th>
+<th align="center">参数个数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">局部全连接层<span class="math inline">\(L_{11}\)</span> <span class="math inline">\(^*\)</span></td>
+<td align="center"><span class="math inline">\(32\times32\times3\)</span></td>
+<td align="center"><span class="math inline">\((3\times3)\times16/1\)</span></td>
+<td align="center"><span class="math inline">\(30\times30\times16\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times3+1)\times16\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">全连接层<span class="math inline">\(L_{12}\)</span> <span class="math inline">\(^*\)</span></td>
+<td align="center"><span class="math inline">\(30\times30\times16\)</span></td>
+<td align="center"><span class="math inline">\(16\times16\)</span></td>
+<td align="center"><span class="math inline">\(30\times30\times16\)</span></td>
+<td align="center"><span class="math inline">\(((16+1)\times16)\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">局部全连接层<span class="math inline">\(L_{21}\)</span></td>
+<td align="center"><span class="math inline">\(30\times30\times16\)</span></td>
+<td align="center"><span class="math inline">\((3\times3)\times64/1\)</span></td>
+<td align="center"><span class="math inline">\(28\times28\times64\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times16+1)\times64\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">全连接层<span class="math inline">\(L_{22}\)</span></td>
+<td align="center"><span class="math inline">\(28\times28\times64\)</span></td>
+<td align="center"><span class="math inline">\(64\times64\)</span></td>
+<td align="center"><span class="math inline">\(28\times28\times64\)</span></td>
+<td align="center"><span class="math inline">\(((64+1)\times64)\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">局部全连接层<span class="math inline">\(L_{31}\)</span></td>
+<td align="center"><span class="math inline">\(28\times28\times64\)</span></td>
+<td align="center"><span class="math inline">\((3\times3)\times100/1\)</span></td>
+<td align="center"><span class="math inline">\(26\times26\times100\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times64+1)\times100\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">全连接层<span class="math inline">\(L_{32}\)</span></td>
+<td align="center"><span class="math inline">\(26\times26\times100\)</span></td>
+<td align="center"><span class="math inline">\(100\times100\)</span></td>
+<td align="center"><span class="math inline">\(26\times26\times100\)</span></td>
+<td align="center"><span class="math inline">\(((100+1)\times100)\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">全局平均采样<span class="math inline">\(GAP\)</span> <span class="math inline">\(^*\)</span></td>
+<td align="center"><span class="math inline">\(26\times26\times100\)</span></td>
+<td align="center"><span class="math inline">\(26\times26\times100/1\)</span></td>
+<td align="center"><span class="math inline">\(1\times1\times100\)</span></td>
+<td align="center"><span class="math inline">\(0\)</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>局部全连接层<span class="math inline">\(L_{11}\)</span>实际上是对原始输入图像进行划窗式的全连接操作，因此划窗得到的输出特征尺寸为<span class="math inline">\(30\times30\)</span>（<span class="math inline">\(\frac{32-3_k+1}{1_{stride}}=30\)</span>）</p></li>
+<li><p>全连接层<span class="math inline">\(L_{12}\)</span>是紧跟<span class="math inline">\(L_{11}\)</span>后的全连接操作，输入的特征是划窗后经过激活的局部响应特征，因此仅需连接<span class="math inline">\(L_{11}\)</span>和<span class="math inline">\(L_{12}\)</span>的节点即可，而每个局部全连接层和紧接的全连接层构成代替卷积操作的多层感知卷积层（MLPConv）。</p></li>
+<li><p>全局平均采样层或全局平均池化层<span class="math inline">\(GAP\)</span>（Global Average Pooling）将<span class="math inline">\(L_{32}\)</span>输出的每一个特征图进行全局的平均池化操作，直接得到最后的类别数，可以有效地减少参数量。</p></li>
+</ul>
+</div>
+<div id="模型特点" class="section level3" number="3.4.3">
+<h3><span class="header-section-number">3.4.3</span> 模型特点</h3>
+<ul>
+<li><p>使用多层感知机结构来代替卷积的滤波操作，不但有效减少卷积核数过多而导致的参数量暴涨问题，还能通过引入非线性的映射来提高模型对特征的抽象能力。</p></li>
+<li><p>使用全局平均池化来代替最后一个全连接层，能够有效地减少参数量（没有可训练参数），同时池化用到了整个特征图的信息，对空间信息的转换更加鲁棒，最后得到的输出结果可直接作为对应类别的置信度。</p></li>
+</ul>
+</div>
+</div>
+<div id="vggnet" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> VGGNet</h2>
+<div id="模型介绍-4" class="section level3" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> 模型介绍</h3>
+<p>​VGGNet是由牛津大学视觉几何小组（Visual Geometry Group, VGG）提出的一种深层卷积网络结构，他们以7.32%的错误率赢得了2014年ILSVRC分类任务的亚军（冠军由GoogLeNet以6.65%的错误率夺得）和25.32%的错误率夺得定位任务（Localization）的第一名（GoogLeNet错误率为26.44%）<span class="math inline">\(^{[5]}\)</span>，网络名称VGGNet取自该小组名缩写。VGGNet是首批把图像分类的错误率降低到10%以内模型，同时该网络所采用的<span class="math inline">\(3\times3\)</span>卷积核的思想是后来许多模型的基础，该模型发表在2015年国际学习表征会议（International Conference On Learning Representations, ICLR）后至今被引用的次数已经超过1万4千余次。</p>
+</div>
+<div id="模型结构-4" class="section level3" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> 模型结构</h3>
+<p><img src="img/02-08.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>​在原论文中的VGGNet包含了6个版本的演进，分别对应VGG11、VGG11-LRN、VGG13、VGG16-1、VGG16-3和VGG19，不同的后缀数值表示不同的网络层数（VGG11-LRN表示在第一层中采用了LRN的VGG11，VGG16-1表示后三组卷积块中最后一层卷积采用卷积核尺寸为<span class="math inline">\(1\times1\)</span>，相应的VGG16-3表示卷积核尺寸为<span class="math inline">\(3\times3\)</span>），本节介绍的VGG16为VGG16-3。上图中的VGG16体现了VGGNet的核心思路，使用<span class="math inline">\(3\times3\)</span>的卷积组合代替大尺寸的卷积（2个<span class="math inline">\(3\times3卷积即可与\)</span><span class="math inline">\(5\times5\)</span>卷积拥有相同的感受视野），网络参数设置如下表所示。</p>
+<table>
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">网络层</th>
+<th align="center">输入尺寸</th>
+<th align="center">核尺寸</th>
+<th align="center">输出尺寸</th>
+<th align="center">参数个数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">卷积层<span class="math inline">\(C_{11}\)</span></td>
+<td align="center"><span class="math inline">\(224\times224\times3\)</span></td>
+<td align="center"><span class="math inline">\(3\times3\times64/1\)</span></td>
+<td align="center"><span class="math inline">\(224\times224\times64\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times3+1)\times64\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">卷积层<span class="math inline">\(C_{12}\)</span></td>
+<td align="center"><span class="math inline">\(224\times224\times64\)</span></td>
+<td align="center"><span class="math inline">\(3\times3\times64/1\)</span></td>
+<td align="center"><span class="math inline">\(224\times224\times64\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times64+1)\times64\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">下采样层<span class="math inline">\(S_{max1}\)</span></td>
+<td align="center"><span class="math inline">\(224\times224\times64\)</span></td>
+<td align="center"><span class="math inline">\(2\times2/2\)</span></td>
+<td align="center"><span class="math inline">\(112\times112\times64\)</span></td>
+<td align="center"><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">卷积层<span class="math inline">\(C_{21}\)</span></td>
+<td align="center"><span class="math inline">\(112\times112\times64\)</span></td>
+<td align="center"><span class="math inline">\(3\times3\times128/1\)</span></td>
+<td align="center"><span class="math inline">\(112\times112\times128\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times64+1)\times128\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">卷积层<span class="math inline">\(C_{22}\)</span></td>
+<td align="center"><span class="math inline">\(112\times112\times128\)</span></td>
+<td align="center"><span class="math inline">\(3\times3\times128/1\)</span></td>
+<td align="center"><span class="math inline">\(112\times112\times128\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times128+1)\times128\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">下采样层<span class="math inline">\(S_{max2}\)</span></td>
+<td align="center"><span class="math inline">\(112\times112\times128\)</span></td>
+<td align="center"><span class="math inline">\(2\times2/2\)</span></td>
+<td align="center"><span class="math inline">\(56\times56\times128\)</span></td>
+<td align="center"><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">卷积层<span class="math inline">\(C_{31}\)</span></td>
+<td align="center"><span class="math inline">\(56\times56\times128\)</span></td>
+<td align="center"><span class="math inline">\(3\times3\times256/1\)</span></td>
+<td align="center"><span class="math inline">\(56\times56\times256\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times128+1)\times256\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">卷积层<span class="math inline">\(C_{32}\)</span></td>
+<td align="center"><span class="math inline">\(56\times56\times256\)</span></td>
+<td align="center"><span class="math inline">\(3\times3\times256/1\)</span></td>
+<td align="center"><span class="math inline">\(56\times56\times256\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times256+1)\times256\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">卷积层<span class="math inline">\(C_{33}\)</span></td>
+<td align="center"><span class="math inline">\(56\times56\times256\)</span></td>
+<td align="center"><span class="math inline">\(26\times26\times256/1\)</span></td>
+<td align="center"><span class="math inline">\(56\times56\times256\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times256+1)\times256\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">下采样层<span class="math inline">\(S_{max3}\)</span></td>
+<td align="center"><span class="math inline">\(56\times56\times256\)</span></td>
+<td align="center"><span class="math inline">\(2\times2/2\)</span></td>
+<td align="center"><span class="math inline">\(28\times28\times256\)</span></td>
+<td align="center"><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">卷积层<span class="math inline">\(C_{41}\)</span></td>
+<td align="center"><span class="math inline">\(28\times28\times256\)</span></td>
+<td align="center"><span class="math inline">\(3\times3\times512/1\)</span></td>
+<td align="center"><span class="math inline">\(28\times28\times512\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times256+1)\times512\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">卷积层<span class="math inline">\(C_{42}\)</span></td>
+<td align="center"><span class="math inline">\(28\times28\times512\)</span></td>
+<td align="center"><span class="math inline">\(3\times3\times512/1\)</span></td>
+<td align="center"><span class="math inline">\(28\times28\times512\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times512+1)\times512\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">卷积层<span class="math inline">\(C_{43}\)</span></td>
+<td align="center"><span class="math inline">\(28\times28\times512\)</span></td>
+<td align="center"><span class="math inline">\(3\times3\times512/1\)</span></td>
+<td align="center"><span class="math inline">\(28\times28\times512\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times512+1)\times512\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">下采样层<span class="math inline">\(S_{max4}\)</span></td>
+<td align="center"><span class="math inline">\(28\times28\times512\)</span></td>
+<td align="center"><span class="math inline">\(2\times2/2\)</span></td>
+<td align="center"><span class="math inline">\(14\times14\times512\)</span></td>
+<td align="center"><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">卷积层<span class="math inline">\(C_{51}\)</span></td>
+<td align="center"><span class="math inline">\(14\times14\times512\)</span></td>
+<td align="center"><span class="math inline">\(3\times3\times512/1\)</span></td>
+<td align="center"><span class="math inline">\(14\times14\times512\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times512+1)\times512\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">卷积层<span class="math inline">\(C_{52}\)</span></td>
+<td align="center"><span class="math inline">\(14\times14\times512\)</span></td>
+<td align="center"><span class="math inline">\(3\times3\times512/1\)</span></td>
+<td align="center"><span class="math inline">\(14\times14\times512\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times512+1)\times512\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">卷积层<span class="math inline">\(C_{53}\)</span></td>
+<td align="center"><span class="math inline">\(14\times14\times512\)</span></td>
+<td align="center"><span class="math inline">\(3\times3\times512/1\)</span></td>
+<td align="center"><span class="math inline">\(14\times14\times512\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times512+1)\times512\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">下采样层<span class="math inline">\(S_{max5}\)</span></td>
+<td align="center"><span class="math inline">\(14\times14\times512\)</span></td>
+<td align="center"><span class="math inline">\(2\times2/2\)</span></td>
+<td align="center"><span class="math inline">\(7\times7\times512\)</span></td>
+<td align="center"><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">全连接层<span class="math inline">\(FC_{1}\)</span></td>
+<td align="center"><span class="math inline">\(7\times7\times512\)</span></td>
+<td align="center"><span class="math inline">\((7\times7\times512)\times4096\)</span></td>
+<td align="center"><span class="math inline">\(1\times4096\)</span></td>
+<td align="center"><span class="math inline">\((7\times7\times512+1)\times4096\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">全连接层<span class="math inline">\(FC_{2}\)</span></td>
+<td align="center"><span class="math inline">\(1\times4096\)</span></td>
+<td align="center"><span class="math inline">\(4096\times4096\)</span></td>
+<td align="center"><span class="math inline">\(1\times4096\)</span></td>
+<td align="center"><span class="math inline">\((4096+1)\times4096\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">全连接层<span class="math inline">\(FC_{3}\)</span></td>
+<td align="center"><span class="math inline">\(1\times4096\)</span></td>
+<td align="center"><span class="math inline">\(4096\times1000\)</span></td>
+<td align="center"><span class="math inline">\(1\times1000\)</span></td>
+<td align="center"><span class="math inline">\((4096+1)\times1000\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="模型特性-3" class="section level3" number="3.5.3">
+<h3><span class="header-section-number">3.5.3</span> 模型特性</h3>
+<ul>
+<li>整个网络都使用了同样大小的卷积核尺寸<span class="math inline">\(3\times3\)</span>和最大池化尺寸<span class="math inline">\(2\times2\)</span>。</li>
+<li><span class="math inline">\(1\times1\)</span>卷积的意义主要在于线性变换，而输入通道数和输出通道数不变，没有发生降维。</li>
+<li>两个<span class="math inline">\(3\times3\)</span>的卷积层串联相当于1个<span class="math inline">\(5\times5\)</span>的卷积层，感受野大小为<span class="math inline">\(5\times5\)</span>。同样地，3个<span class="math inline">\(3\times3\)</span>的卷积层串联的效果则相当于1个<span class="math inline">\(7\times7\)</span>的卷积层。这样的连接方式使得网络参数量更小，而且多层的激活函数令网络对特征的学习能力更强。</li>
+<li>VGGNet在训练时有一个小技巧，先训练浅层的的简单网络VGG11，再复用VGG11的权重来初始化VGG13，如此反复训练并初始化VGG19，能够使训练时收敛的速度更快。</li>
+<li>在训练过程中使用多尺度的变换对原始数据做数据增强，使得模型不易过拟合。</li>
+</ul>
+</div>
+</div>
+<div id="googlenet" class="section level2" number="3.6">
+<h2><span class="header-section-number">3.6</span> GoogLeNet</h2>
+<div id="模型介绍-5" class="section level3" number="3.6.1">
+<h3><span class="header-section-number">3.6.1</span> 模型介绍</h3>
+<p>GoogLeNet作为2014年ILSVRC在分类任务上的冠军，以6.65%的错误率力压VGGNet等模型，在分类的准确率上面相比过去两届冠军ZFNet和AlexNet都有很大的提升。从名字<strong>GoogLe</strong>Net可以知道这是来自谷歌工程师所设计的网络结构，而名字中Goog<strong>LeNet</strong>更是致敬了LeNet<span class="math inline">\(^{[0]}\)</span>。GoogLeNet中最核心的部分是其内部子网络结构Inception，该结构灵感来源于NIN，至今已经经历了四次版本迭代（Inception<span class="math inline">\(_{v1-4}\)</span>）。</p>
+<p><img src="img/02-09.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="模型结构-5" class="section level3" number="3.6.2">
+<h3><span class="header-section-number">3.6.2</span> 4.6.2 模型结构</h3>
+<p><img src="img/02-10.jpeg" width="70%" style="display: block; margin: auto;" /></p>
+<p>​GoogLeNet相比于以前的卷积神经网络结构，除了在深度上进行了延伸，还对网络的宽度进行了扩展，整个网络由许多块状子网络的堆叠而成，这个子网络构成了Inception结构。上图Inception的四个版本：<span class="math inline">\(Inception_{v1}\)</span>在同一层中采用不同的卷积核，并对卷积结果进行合并;<span class="math inline">\(Inception_{v2}\)</span>组合不同卷积核的堆叠形式，并对卷积结果进行合并;<span class="math inline">\(Inception_{v3}\)</span>则在<span class="math inline">\(v_2\)</span>基础上进行深度组合的尝试;<span class="math inline">\(Inception_{v4}​\)</span>结构相比于前面的版本更加复杂，子网络中嵌套着子网络。</p>
+<p><img src="img/02-11.png" width="70%" style="display: block; margin: auto;" />
+<img src="img/02-14.png" width="70%" style="display: block; margin: auto;" />
+<img src="img/02-12.png" width="70%" style="display: block; margin: auto;" />
+<img src="img/02-13.png" width="70%" style="display: block; margin: auto;" /></p>
+<table>
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">网络层</th>
+<th align="center">输入尺寸</th>
+<th align="center">核尺寸</th>
+<th align="center">输出尺寸</th>
+<th align="center">参数个数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">卷积层<span class="math inline">\(C_{11}\)</span></td>
+<td align="center"><span class="math inline">\(H\times{W}\times{C_1}\)</span></td>
+<td align="center"><span class="math inline">\(1\times1\times{C_2}/2\)</span></td>
+<td align="center"><span class="math inline">\(\frac{H}{2}\times\frac{W}{2}\times{C_2}\)</span></td>
+<td align="center"><span class="math inline">\((1\times1\times{C_1}+1)\times{C_2}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">卷积层<span class="math inline">\(C_{21}\)</span></td>
+<td align="center"><span class="math inline">\(H\times{W}\times{C_2}\)</span></td>
+<td align="center"><span class="math inline">\(1\times1\times{C_2}/2\)</span></td>
+<td align="center"><span class="math inline">\(\frac{H}{2}\times\frac{W}{2}\times{C_2}\)</span></td>
+<td align="center"><span class="math inline">\((1\times1\times{C_2}+1)\times{C_2}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">卷积层<span class="math inline">\(C_{22}\)</span></td>
+<td align="center"><span class="math inline">\(H\times{W}\times{C_2}\)</span></td>
+<td align="center"><span class="math inline">\(3\times3\times{C_2}/1\)</span></td>
+<td align="center"><span class="math inline">\(H\times{W}\times{C_2}/1\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times{C_2}+1)\times{C_2}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">卷积层<span class="math inline">\(C_{31}\)</span></td>
+<td align="center"><span class="math inline">\(H\times{W}\times{C_1}\)</span></td>
+<td align="center"><span class="math inline">\(1\times1\times{C_2}/2\)</span></td>
+<td align="center"><span class="math inline">\(\frac{H}{2}\times\frac{W}{2}\times{C_2}\)</span></td>
+<td align="center"><span class="math inline">\((1\times1\times{C_1}+1)\times{C_2}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">卷积层<span class="math inline">\(C_{32}\)</span></td>
+<td align="center"><span class="math inline">\(H\times{W}\times{C_2}\)</span></td>
+<td align="center"><span class="math inline">\(5\times5\times{C_2}/1\)</span></td>
+<td align="center"><span class="math inline">\(H\times{W}\times{C_2}/1\)</span></td>
+<td align="center"><span class="math inline">\((5\times5\times{C_2}+1)\times{C_2}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">下采样层<span class="math inline">\(S_{41}\)</span></td>
+<td align="center"><span class="math inline">\(H\times{W}\times{C_1}\)</span></td>
+<td align="center"><span class="math inline">\(3\times3/2\)</span></td>
+<td align="center"><span class="math inline">\(\frac{H}{2}\times\frac{W}{2}\times{C_2}\)</span></td>
+<td align="center"><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">卷积层<span class="math inline">\(C_{42}\)</span></td>
+<td align="center"><span class="math inline">\(\frac{H}{2}\times\frac{W}{2}\times{C_2}\)</span></td>
+<td align="center"><span class="math inline">\(1\times1\times{C_2}/1\)</span></td>
+<td align="center"><span class="math inline">\(\frac{H}{2}\times\frac{W}{2}\times{C_2}\)</span></td>
+<td align="center"><span class="math inline">\((3\times3\times{C_2}+1)\times{C_2}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">合并层<span class="math inline">\(M\)</span></td>
+<td align="center"><span class="math inline">\(\frac{H}{2}\times\frac{W}{2}\times{C_2}(\times4)\)</span></td>
+<td align="center">拼接</td>
+<td align="center"><span class="math inline">\(\frac{H}{2}\times\frac{W}{2}\times({C_2}\times4)\)</span></td>
+<td align="center"><span class="math inline">\(0\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="模型特性-4" class="section level3" number="3.6.3">
+<h3><span class="header-section-number">3.6.3</span> 模型特性</h3>
+<ul>
+<li>采用不同大小的卷积核意味着不同大小的感受野，最后拼接意味着不同尺度特征的融合；</li>
+<li>之所以卷积核大小采用1、3和5，主要是为了方便对齐。设定卷积步长stride=1之后，只要分别设定pad=0、1、2，那么卷积之后便可以得到相同维度的特征，然后这些特征就可以直接拼接在一起了；</li>
+<li>网络越到后面，特征越抽象，而且每个特征所涉及的感受野也更大了，因此随着层数的增加，3x3和5x5卷积的比例也要增加。但是，使用5x5的卷积核仍然会带来巨大的计算量。 为此，文章借鉴NIN2，采用1x1卷积核来进行降维。</li>
+</ul>
+</div>
+</div>
+<div id="为什么现在的cnn模型都是在googlenetvggnet或者alexnet上调整的" class="section level2" number="3.7">
+<h2><span class="header-section-number">3.7</span> 为什么现在的CNN模型都是在GoogleNet、VGGNet或者AlexNet上调整的？</h2>
+<ul>
+<li>评测对比：为了让自己的结果更有说服力，在发表自己成果的时候会同一个标准的baseline及在baseline上改进而进行比较，常见的比如各种检测分割的问题都会基于VGG或者Resnet101这样的基础网络。</li>
+<li>时间和精力有限：在科研压力和工作压力中，时间和精力只允许大家在有限的范围探索。</li>
+<li>模型创新难度大：进行基本模型的改进需要大量的实验和尝试，并且需要大量的实验积累和强大灵感，很有可能投入产出比比较小。</li>
+<li>资源限制：创造一个新的模型需要大量的时间和计算资源，往往在学校和小型商业团队不可行。</li>
+<li>在实际的应用场景中，其实是有大量的非标准模型的配置。</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="Alexnet.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/iotctech/deeplearning/edit/master/02-网络模型.Rmd",
+"text": "编辑"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Deep-Learning-Book.pdf", "Deep-Learning-Book.epub"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
