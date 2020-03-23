@@ -81,7 +81,20 @@
 <li class="chapter" data-level="2.4.1" data-path="Alexnet.html"><a href="Alexnet.html#relu-nonlinearity"><i class="fa fa-check"></i><b>2.4.1</b> ReLU Nonlinearity</a></li>
 <li class="chapter" data-level="2.4.2" data-path="Alexnet.html"><a href="Alexnet.html#training-on-multiple-gpus"><i class="fa fa-check"></i><b>2.4.2</b> Training on Multiple GPUs</a></li>
 <li class="chapter" data-level="2.4.3" data-path="Alexnet.html"><a href="Alexnet.html#local-response-normalization"><i class="fa fa-check"></i><b>2.4.3</b> Local Response Normalization</a></li>
+<li class="chapter" data-level="2.4.4" data-path="Alexnet.html"><a href="Alexnet.html#overlapping-pooling"><i class="fa fa-check"></i><b>2.4.4</b> Overlapping Pooling</a></li>
+<li class="chapter" data-level="2.4.5" data-path="Alexnet.html"><a href="Alexnet.html#overall-architecture"><i class="fa fa-check"></i><b>2.4.5</b> Overall Architecture</a></li>
 </ul></li>
+<li class="chapter" data-level="2.5" data-path="Alexnet.html"><a href="Alexnet.html#reducing-overfitting"><i class="fa fa-check"></i><b>2.5</b> Reducing Overfitting</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="Alexnet.html"><a href="Alexnet.html#data-augmentation"><i class="fa fa-check"></i><b>2.5.1</b> Data Augmentation</a></li>
+<li class="chapter" data-level="2.5.2" data-path="Alexnet.html"><a href="Alexnet.html#dropout"><i class="fa fa-check"></i><b>2.5.2</b> Dropout</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="Alexnet.html"><a href="Alexnet.html#details-of-learning"><i class="fa fa-check"></i><b>2.6</b> Details of learning</a></li>
+<li class="chapter" data-level="2.7" data-path="Alexnet.html"><a href="Alexnet.html#results"><i class="fa fa-check"></i><b>2.7</b> Results</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="Alexnet.html"><a href="Alexnet.html#qualitative-evaluations"><i class="fa fa-check"></i><b>2.7.1</b> Qualitative Evaluations</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="Alexnet.html"><a href="Alexnet.html#discussion"><i class="fa fa-check"></i><b>2.8</b> Discussion</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">本论文由 bookdown 强力驱动</a></li>
@@ -141,8 +154,147 @@
 <div id="local-response-normalization" class="section level3" number="2.4.3">
 <h3><span class="header-section-number">2.4.3</span> Local Response Normalization</h3>
 <p>ReLUs have the desirable property that they do not require input normalization to prevent them from saturating. If at least some training examples produce a positive input to a ReLU, learning will happen in that neuron. However, we still find that the following local normalization scheme aids generalization. Denoting by <span class="math inline">\(a^i_{x,y}\)</span> the activity of a neuron computed by applying kernel i at position <span class="math inline">\((x, y)\)</span> and then applying the ReLU nonlinearity, the response-normalized activity <span class="math inline">\(b^i_{x,y}\)</span> is given by the expression</p>
-
+<p><span class="math display">\[b^i_{x,y} = a^i_{x,y}/\bigg(k+\alpha\sum\limits_{j=max(0,i-n/2)}^{min(N-1,i+n/2)}(a_{x,y}^j)^2\bigg)^\beta\]</span></p>
+<p>where the sum runs over n “adjacent” kernel maps at the same spatial position, and N is the total number of kernels in the layer. The ordering of the kernel maps is of course arbitrary and determined before training begins. This sort of response normalization implements a form of lateral inhibition inspired by the type found in real neurons, creating competition for big activities amongst neuron outputs computed using different kernels. The constants <span class="math inline">\(k\)</span>, <span class="math inline">\(n\)</span>, <span class="math inline">\(\alpha\)</span>, and <span class="math inline">\(\beta\)</span> are hyper-parameters whose values are determined using a validation set; we used <span class="math inline">\(k = 2\)</span>, <span class="math inline">\(n = 5\)</span>, <span class="math inline">\(\alpha = 10^−4\)</span>, and <span class="math inline">\(\beta = 0.75\)</span>. We applied this normalization after applying the ReLU nonlinearity in certain layers (see Section 3.5).</p>
+<p>This scheme bears some resemblance to the local contrast normalization scheme of Jarrett et al. [11], but ours would be more correctly termed “brightness normalization”, since we do not subtract the mean activity. Response normalization reduces our top-1 and top-5 error rates by 1.4% and 1.2%, respectively. We also verified the effectiveness of this scheme on the CIFAR-10 dataset: a four-layer CNN achieved a 13% test error rate without normalization and 11% with <span class="math inline">\(normalization^3\)</span>.</p>
 </div>
+<div id="overlapping-pooling" class="section level3" number="2.4.4">
+<h3><span class="header-section-number">2.4.4</span> Overlapping Pooling</h3>
+<p>Pooling layers in CNNs summarize the outputs of neighboring groups of neurons in the same kernel map. Traditionally, the neighborhoods summarized by adjacent pooling units do not overlap (e.g., [17, 11, 4]). To be more precise, a pooling layer can be thought of as consisting of a grid of pooling units spaced s pixels apart, each summarizing a neighborhood of size <span class="math inline">\(z × z\)</span> centered at the location of the pooling unit. If we set <span class="math inline">\(s = z\)</span>, we obtain traditional local pooling as commonly employed in CNNs. If we set <span class="math inline">\(s &lt; z\)</span>, we obtain overlapping pooling. This is what we use throughout our network, with <span class="math inline">\(s = 2\)</span> and <span class="math inline">\(z = 3\)</span>. This scheme reduces the top-1 and top-5 error rates by 0.4% and 0.3%, respectively, as compared with the non-overlapping scheme <span class="math inline">\(s = 2\)</span>, <span class="math inline">\(z = 2\)</span>, which produces output of equivalent dimensions. We generally observe during training that models with overlapping pooling find it slightly more difficult to overfit.</p>
+</div>
+<div id="overall-architecture" class="section level3" number="2.4.5">
+<h3><span class="header-section-number">2.4.5</span> Overall Architecture</h3>
+<p>Now we are ready to describe the overall architecture of our CNN. As depicted in Figure 2, the net contains eight layers with weights; the first five are convolutional and the remaining three are fully-connected. The output of the last fully-connected layer is fed to a 1000-way softmax which produces a distribution over the 1000 class labels. Our network maximizes the multinomial logistic regression objective, which is equivalent to maximizing the average across training cases of the log-probability of the correct label under the prediction distribution.</p>
+<p>The kernels of the second, fourth, and fifth convolutional layers are connected only to those kernel maps in the previous layer which reside on the same GPU (see Figure 2). The kernels of the third convolutional layer are connected to all kernel maps in the second layer. The neurons in the fully connected layers are connected to all neurons in the previous layer. Response-normalization layers follow the first and second convolutional layers. Max-pooling layers, of the kind described in Section 3.4, follow both response-normalization layers as well as the fifth convolutional layer. The ReLU non-linearity is applied to the output of every convolutional and fully-connected layer.</p>
+<p><img src="img/01-02.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Figure 2: An illustration of the architecture of our CNN, explicitly showing the delineation of responsibilities between the two GPUs. One GPU runs the layer-parts at the top of the figure while the other runs the layer-parts at the bottom. The GPUs communicate only at certain layers. The network’s input is 150,528-dimensional, and the number of neurons in the network’s remaining layers is given by 253,440–186,624–64,896–64,896–43,264–4096–4096–1000.</p>
+<p>The first convolutional layer filters the 224×224×3 input image with 96 kernels of size 11×11×3 with a stride of 4 pixels (this is the distance between the receptive field centers of neighboring neurons in a kernel map). The second convolutional layer takes as input the (response-normalized and pooled) output of the first convolutional layer and filters it with 256 kernels of size 5 × 5 × 48. The third, fourth, and fifth convolutional layers are connected to one another without any intervening pooling or normalization layers. The third convolutional layer has 384 kernels of size 3 × 3 × 256 connected to the (normalized, pooled) outputs of the second convolutional layer. The fourth convolutional layer has 384 kernels of size 3 × 3 × 192 , and the fifth convolutional layer has 256 kernels of size 3 × 3 × 192. The fully-connected layers have 4096 neurons each.</p>
+</div>
+</div>
+<div id="reducing-overfitting" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Reducing Overfitting</h2>
+<p>Our neural network architecture has 60 million parameters. Although the 1000 classes of ILSVRC make each training example impose 10 bits of constraint on the mapping from image to label, this turns out to be insufficient to learn so many parameters without considerable overfitting. Below, we describe the two primary ways in which we combat overfitting.</p>
+<div id="data-augmentation" class="section level3" number="2.5.1">
+<h3><span class="header-section-number">2.5.1</span> Data Augmentation</h3>
+<p>The easiest and most common method to reduce overfitting on image data is to artificially enlarge the dataset using label-preserving transformations (e.g., [25, 4, 5]). We employ two distinct forms of data augmentation, both of which allow transformed images to be produced from the original images with very little computation, so the transformed images do not need to be stored on disk. In our implementation, the transformed images are generated in Python code on the CPU while the GPU is training on the previous batch of images. So these data augmentation schemes are, in effect, computationally free.</p>
+<p>The first form of data augmentation consists of generating image translations and horizontal reflections. We do this by extracting random 224 × 224 patches (and their horizontal reflections) from the 256×256 images and training our network on these extracted <span class="math inline">\(patches^4\)</span> . This increases the size of our training set by a factor of 2048, though the resulting training examples are, of course, highly inter dependent. Without this scheme, our network suffers from substantial overfitting, which would have forced us to use much smaller networks. At test time, the network makes a prediction by extracting five 224 × 224 patches (the four corner patches and the center patch) as well as their horizontal reflections (hence ten patches in all), and averaging the predictions made by the network’s softmax layer on the ten patches.</p>
+<p>The second form of data augmentation consists of altering the intensities of the RGB channels in training images. Specifically, we perform PCA on the set of RGB pixel values throughout the ImageNet training set. To each training image, we add multiples of the found principal components, with magnitudes proportional to the corresponding eigenvalues times a random variable drawn from a Gaussian with mean zero and standard deviation 0.1. Therefore to each RGB image pixel <span class="math inline">\(I_{xy} = \left[ \begin{matrix} I^R_{xy} &amp; I^G_{xy} &amp; I^B_{xy} \end{matrix} \right]^T\)</span> we add the following quantity:</p>
+<p><span class="math display">\[
+\left[ \begin{matrix} P_1 &amp; P_2 &amp; P_3 \end{matrix} \right]\left[ \begin{matrix} \alpha_1\lambda_1 &amp; \alpha_2\lambda_2 &amp; \alpha_3\lambda_3 \end{matrix} \right]^T
+\]</span></p>
+<p>where <span class="math inline">\(P_i\)</span> and <span class="math inline">\(\lambda_i\)</span> are <span class="math inline">\(i\)</span>th eigenvector and eigenvalue of the 3 × 3 covariance matrix of RGB pixel values, respectively, and <span class="math inline">\(\alpha_i\)</span> is the aforementioned random variable. Each <span class="math inline">\(\alpha_i\)</span> is drawn only once for all the pixels of a particular training image until that image is used for training again, at which point it is re-drawn. This scheme approximately captures an important property of natural images, namely, that object identity is invariant to changes in the intensity and color of the illumination. This scheme reduces the top-1 error rate by over 1%.</p>
+</div>
+<div id="dropout" class="section level3" number="2.5.2">
+<h3><span class="header-section-number">2.5.2</span> Dropout</h3>
+<p>Combining the predictions of many different models is a very successful way to reduce test errors [1, 3], but it appears to be too expensive for big neural networks that already take several days to train. There is, however, a very efficient version of model combination that only costs about a factor of two during training. The recently-introduced technique, called “dropout” [10], consists of setting to zero the output of each hidden neuron with probability 0.5. The neurons which are “dropped out” in this way do not contribute to the forward pass and do not participate in back-propagation. So every time an input is presented, the neural network samples a different architecture, but all these architectures share weights. This technique reduces complex co-adaptations of neurons, since a neuron cannot rely on the presence of particular other neurons. It is, therefore, forced to learn more robust features that are useful in conjunction with many different random subsets of the other neurons. At test time, we use all the neurons but multiply their outputs by 0.5, which is a reasonable approximation to taking the geometric mean of the predictive distributions produced by the exponentially-many dropout networks.</p>
+<p>We use dropout in the first two fully-connected layers of Figure 2. Without dropout, our network exhibits substantial overfitting. Dropout roughly doubles the number of iterations required to converge.</p>
+</div>
+</div>
+<div id="details-of-learning" class="section level2" number="2.6">
+<h2><span class="header-section-number">2.6</span> Details of learning</h2>
+<p>We trained our models using stochastic gradient descent with a batch size of 128 examples, momentum of 0.9, and weight decay of 0.0005. We found that this small amount of weight decay was important for the model to learn. In other words, weight decay here is not merely a regularizer: it reduces the model’s training error. The update rule for weight <span class="math inline">\(w\)</span> was</p>
+<p><span class="math display">\[
+v_{i+1} := 0.9 \cdot v_i - 0.0005 \cdot \epsilon \cdot w_i - \epsilon \cdot \left\langle \frac{\partial L}{\partial w} \mid_{w_i} \right\rangle _{D_i}
+\]</span>
+<span class="math display">\[
+w_{i+1} := w_i + v_{i+1}
+\]</span></p>
+<p>where <span class="math inline">\(i\)</span> is the iteration index, <span class="math inline">\(v\)</span> is the momentum variable, <span class="math inline">\(\epsilon\)</span> is the learning rate, and <span class="math inline">\(\left\langle \frac{\partial L}{\partial w} \mid_{w_i} \right\rangle _{D_i}\)</span> is the average over the <span class="math inline">\(i\)</span>th batch <span class="math inline">\(D_i\)</span> of the derivative of the objective with respect to <span class="math inline">\(w\)</span>, evaluated at <span class="math inline">\(w_i\)</span>.</p>
+<p><img src="img/01-03.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Figure 3: 96 convolutional kernels of size 11×11×3 learned by the first convolutional layer on the 224×224×3 input images. The top 48 kernels were learned on GPU 1 while the bottom 48 kernels were learned on GPU 2. See Section 6.1 for details.</p>
+<p>We initialized the weights in each layer from a zero-mean Gaussian distribution with standard deviation 0.01. We initialized the neuron biases in the second, fourth, and fifth convolutional layers, as well as in the fully-connected hidden layers, with the constant 1. This initialization accelerates the early stages of learning by providing the ReLUs with positive inputs. We initialized the neuron biases in the remaining layers with the constant 0.</p>
+<p>We used an equal learning rate for all layers, which we adjusted manually throughout training. The heuristic which we followed was to divide the learning rate by 10 when the validation error rate stopped improving with the current learning rate. The learning rate was initialized at 0.01 and reduced three times prior to termination. We trained the network for roughly 90 cycles through the training set of 1.2 million images, which took five to six days on two NVIDIA GTX 580 3GB GPUs.</p>
+</div>
+<div id="results" class="section level2" number="2.7">
+<h2><span class="header-section-number">2.7</span> Results</h2>
+<p>Our results on ILSVRC-2010 are summarized in Table 1. Our network achieves top-1 and top-5 test set error rates of 37.5% and <span class="math inline">\(17.0%^5\)</span>. The best performance achieved during the ILSVRC-2010 competition was 47.1% and 28.2% with an approach that averages the predictions produced from six sparse-coding models trained on different features [2], and since then the best published results are 45.7% and 25.7% with an approach that averages the predictions of two classifiers trained on Fisher Vectors (FVs) computed from two types of densely-sampled features [24].</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><strong>Model</strong></th>
+<th align="left"><strong>Top-1</strong></th>
+<th align="left"><strong>Top-5</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Sparse coding [2]</td>
+<td align="left">47.1%</td>
+<td align="left">28.2%</td>
+</tr>
+<tr class="even">
+<td align="left">SIFT + FVs [24]</td>
+<td align="left">45.7%</td>
+<td align="left">25.7%</td>
+</tr>
+<tr class="odd">
+<td align="left">CNN</td>
+<td align="left"><strong>37.5</strong></td>
+<td align="left"><strong>17.0%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Table 1: Comparison of results on ILSVRC-2010 test set. In italics are best results achieved by others.</p>
+<p>We also entered our model in the ILSVRC-2012 competition and report our results in Table 2. Since the ILSVRC-2012 test set labels are not publicly available, we cannot report test error rates for all the models that we tried. In the remainder of this paragraph, we use validation and test error rates interchangeably because in our experience they do not differ by more than 0.1% (see Table 2). The CNN described in this paper achieves a top-5 error rate of 18.2%. Averaging the predictions of five similar CNNs gives an error rate of 16.4%. Training one CNN, with an extra sixth convolutional layer over the last pooling layer, to classify the entire ImageNet Fall 2011 release (15M images, 22K categories), and then “fine-tuning” it on ILSVRC-2012 gives an error rate of 16.6%. Averaging the predictions of two CNNs that were pre-trained on the entire Fall 2011 release with the aforementioned five CNNs gives an error rate of 15.3%. The second-best contest entry achieved an error rate of 26.2% with an approach that averages the predictions of several classifiers trained on FVs computed from different types of densely-sampled features [7].</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><strong>Model</strong></th>
+<th align="left"><strong>Top-1(val)</strong></th>
+<th align="left"><strong>Top-5(val)</strong></th>
+<th align="left"><strong>Top-5(test)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">SIFT + FVs [7]</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">26.2%</td>
+</tr>
+<tr class="even">
+<td align="left">1 CNN</td>
+<td align="left">40.7%</td>
+<td align="left">18.2%</td>
+<td align="left">-</td>
+</tr>
+<tr class="odd">
+<td align="left">5 CNNs</td>
+<td align="left">38.1%</td>
+<td align="left">16.4%</td>
+<td align="left"><strong>16.4%</strong></td>
+</tr>
+<tr class="even">
+<td align="left">1 CNN*</td>
+<td align="left">39.0%</td>
+<td align="left">16.6%</td>
+<td align="left">-</td>
+</tr>
+<tr class="odd">
+<td align="left">7 CNNs*</td>
+<td align="left">36.7%</td>
+<td align="left">15.4%</td>
+<td align="left"><strong>15.3%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Table 2: Comparison of error rates on ILSVRC-2012 validation and test sets. In italics are best results achieved by others. Models with an asterisk* were “pre-trained” to classify the entire ImageNet 2011 Fall release. See Section 6 for details.</p>
+<p>Finally, we also report our error rates on the Fall 2009 version of ImageNet with 10,184 categories and 8.9 million images. On this dataset we follow the convention in the literature of using half of the images for training and half for testing. Since there is no established test set, our split necessarily differs from the splits used by previous authors, but this does not affect the results appreciably. Our top-1 and top-5 error rates on this dataset are 67.4% and 40.9%, attained by the net described above but with an additional, sixth convolutional layer over the last pooling layer. The best published results on this dataset are 78.1% and 60.9% [19].</p>
+<div id="qualitative-evaluations" class="section level3" number="2.7.1">
+<h3><span class="header-section-number">2.7.1</span> Qualitative Evaluations</h3>
+<p>Figure 3 shows the convolutional kernels learned by the network’s two data-connected layers. The network has learned a variety of frequency- and orientation-selective kernels, as well as various colored blobs. Notice the specialization exhibited by the two GPUs, a result of the restricted connectivity described in Section 3.5. The kernels on GPU 1 are largely color-agnostic, while the kernels on on GPU 2 are largely color-specific. This kind of specialization occurs during every run and is independent of any particular random weight initialization (modulo a renumbering of the GPUs).</p>
+<p><img src="img/01-04.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Figure 4: (Left) Eight ILSVRC-2010 test images and the five labels considered most probable by our model. The correct label is written under each image, and the probability assigned to the correct label is also shown with a red bar (if it happens to be in the top 5). (Right) Five ILSVRC-2010 test images in the first column. The remaining columns show the six training images that produce feature vectors in the last hidden layer with the smallest Euclidean distance from the feature vector for the test image.</p>
+<p>In the left panel of Figure 4 we qualitatively assess what the network has learned by computing its top-5 predictions on eight test images. Notice that even off-center objects, such as the mite in the top-left, can be recognized by the net. Most of the top-5 labels appear reasonable. For example, only other types of cat are considered plausible labels for the leopard. In some cases (grille, cherry) there is genuine ambiguity about the intended focus of the photograph.</p>
+<p>Another way to probe the network’s visual knowledge is to consider the feature activations induced by an image at the last, 4096-dimensional hidden layer. If two images produce feature activation vectors with a small Euclidean separation, we can say that the higher levels of the neural network consider them to be similar. Figure 4 shows five images from the test set and the six images from the training set that are most similar to each of them according to this measure. Notice that at the pixel level, the retrieved training images are generally not close in L2 to the query images in the first column. For example, the retrieved dogs and elephants appear in a variety of poses. We present the results for many more test images in the supplementary material.</p>
+<p>Computing similarity by using Euclidean distance between two 4096-dimensional, real-valued vectors is inefficient, but it could be made efficient by training an auto-encoder to compress these vectors to short binary codes. This should produce a much better image retrieval method than applying auto-encoders to the raw pixels [14], which does not make use of image labels and hence has a tendency to retrieve images with similar patterns of edges, whether or not they are semantically similar</p>
+</div>
+</div>
+<div id="discussion" class="section level2" number="2.8">
+<h2><span class="header-section-number">2.8</span> Discussion</h2>
+<p>Our results show that a large, deep convolutional neural network is capable of achieving record-breaking results on a highly challenging dataset using purely supervised learning. It is notable that our network’s performance degrades if a single convolutional layer is removed. For example, removing any of the middle layers results in a loss of about 2% for the top-1 performance of the network. So the depth really is important for achieving our results.</p>
+<p>To simplify our experiments, we did not use any unsupervised pre-training even though we expect that it will help, especially if we obtain enough computational power to significantly increase the size of the network without obtaining a corresponding increase in the amount of labeled data. Thus far, our results have improved as we have made our network larger and trained it longer but we still have many orders of magnitude to go in order to match the infero-temporal pathway of the human visual system. Ultimately we would like to use very large and deep convolutional nets on video sequences where the temporal structure provides very helpful information that is missing or far less obvious in static images.</p>
+
 </div>
 </div>
             </section>
