@@ -165,7 +165,7 @@
 \providecommand{\subtitle}[1]{}
 \subtitle{Deep Learning Book}
 \author{贝塔}
-\date{2020-03-23}
+\date{2020-03-24}
 
 \begin{document}
 % \maketitle
@@ -197,10 +197,14 @@
 \hypertarget{Alexnet}{%
 \chapter{ImageNet Classification with Deep Convolutional Neural Networks}\label{Alexnet}}
 
-\hypertarget{abstract}{%
-\section{Abstract}\label{abstract}}
+基于深度卷积神经网络的图像分类网络
 
-We trained a large, deep convolutional neural network to classify the 1.2 million high-resolution images in the ImageNet LSVRC-2010 contest into the 1000 different classes. On the test data, we achieved top-1 and top-5 error rates of 37.5\% and 17.0\% which is considerably better than the previous state-of-the-art. The neural network, which has 60 million parameters and 650,000 neurons, consists of five convolutional layers, some of which are followed by max-pooling layers, and three fully-connected layers with a final 1000-way softmax. To make training faster, we used non-saturating neurons and a very efficient GPU implementation of the convolution operation. To reduce overfitting in the fully-connected layers we employed a recently-developed regularization method called ``dropout'' that proved to be very effective. We also entered a variant of this model in the ILSVRC-2012 competition and achieved a winning top-5 test error rate of 15.3\%, compared to 26.2\% achieved by the second-best entry
+\hypertarget{abstractux6458ux8981}{%
+\section{Abstract(摘要)}\label{abstractux6458ux8981}}
+
+We trained a large, deep convolutional neural network to classify the 1.2 million high-resolution images in the ImageNet LSVRC-2010 contest into the 1000 different classes. On the test data, we achieved top-1 and top-5 error rates of 37.5\% and 17.0\% which is considerably better than the previous state-of-the-art. The neural network, which has 60 million parameters and 650,000 neurons, consists of five convolutional layers, some of which are followed by max-pooling layers, and three fully-connected layers with a final 1000-way softmax. To make training faster, we used non-saturating neurons and a very efficient GPU implementation of the convolution operation. To reduce overfitting in the fully-connected layers we employed a recently-developed regularization method called ``dropout'' that proved to be very effective. We also entered a variant of this model in the ILSVRC-2012 competition and achieved a winning top-5 test error rate of 15.3\%, compared to 26.2\% achieved by the second-best entry.
+
+在ImageNet LSVRC-2010比赛中，我们训练了一个大型深度卷积神经网络，将120万张高分辨率图像分为1000个不同的种类。在测试集上，我们得到了top-1 37.5\%, top-5 17.0\%的错误率，这比目前最先进的结果还要好得多。这个神经网络有6000万个参数和650000个神经元，包含5个卷积层（某些卷积层后带有池化层）和3个全连接层，最后是一个1000维的softmax。为了训练更快，我们使用了非饱和神经元，并且针对卷积操作进行了非常有效的GPU实现。为了减少全连接层的过拟合，我们采用了最近新开发的名为``dropout''的正则化方法，并且结果证明是非常有效的，我们同样使用这个模型的变种模型，参加ILSVRC-2012竞赛，以top-5 15.3\%的错误率赢得了冠军，而第二名错误率是26.2\%.
 
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
@@ -535,7 +539,7 @@ LeNet-5网络参数配置:
 \hypertarget{ux6a21ux578bux4ecbux7ecd-1}{%
 \subsection{模型介绍}\label{ux6a21ux578bux4ecbux7ecd-1}}
 
-AlexNet是由\_Alex Krizhevsky\_提出的首个应用于图像分类的深层卷积神经网络，该网络在2012年ILSVRC（ImageNet Large Scale Visual Recognition Competition）图像分类竞赛中以15.3\%的top-5测试错误率赢得第一名。AlexNet使用GPU代替CPU进行运算，使得在可接受的时间范围内模型结构能够更加复杂，它的出现证明了深层卷积神经网络在复杂模型下的有效性，使CNN在计算机视觉中流行开来，直接或间接地引发了深度学习的热潮。
+AlexNet是由\emph{Alex Krizhevsky}提出的首个应用于图像分类的深层卷积神经网络，该网络在2012年ILSVRC（ImageNet Large Scale Visual Recognition Competition）图像分类竞赛中以15.3\%的top-5测试错误率赢得第一名。AlexNet使用GPU代替CPU进行运算，使得在可接受的时间范围内模型结构能够更加复杂，它的出现证明了深层卷积神经网络在复杂模型下的有效性，使CNN在计算机视觉中流行开来，直接或间接地引发了深度学习的热潮。
 
 \hypertarget{ux6a21ux578bux7ed3ux6784-1}{%
 \subsection{模型结构}\label{ux6a21ux578bux7ed3ux6784-1}}
