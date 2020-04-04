@@ -1,4 +1,7 @@
 ## 概述
+**深度学习模型论文翻译文档集**
+![https://github.com/iotctech/deeplearning](https://github.com/iotctech/deeplearning)
+
 本文档使用bookdown框架制作，bookdown需要R语言支持，语法为RMarkdown
 
 **安装R语言**
